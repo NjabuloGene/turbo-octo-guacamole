@@ -1,0 +1,50 @@
+
+
+body{
+    background-color: rgb(19, 35, 41);
+    text-align: center;
+    font-size: larger;
+    color: white;
+    background-image: url(newFamilyBg.jpg);
+}
+
+
+.form{
+    justify-self: center;
+     background-color:  rgba(255,255,255,0.3);
+    padding: 50px;
+    padding-top: 10px;
+    border-radius: 30px;
+}
+
+input{
+    border-radius: 15px;
+    height: 40px;
+    border: none;
+}
+
+select{
+    height: 30px;
+    width: 170px;
+    border-radius: 15px;
+}
+
+.dateIn{
+    width: 170px;
+}
+
+.submitBtn{
+    border-radius: 15px;
+    height: 40px;
+    width: 70;
+    margin-top: 30px;
+    background-color: rgb(255, 255, 255);
+    
+    
+    
+}
+
+.adressIn{
+    height: 12 0px;
+    
+}

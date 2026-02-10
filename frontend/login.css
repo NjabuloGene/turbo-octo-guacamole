@@ -1,0 +1,62 @@
+body{
+    background-color: rgb(19, 35, 41);
+    text-align: center;
+    font-size: larger;
+    color: snow;
+    background-image: url(newFamilyBg.jpg);
+}
+
+
+.navbar{
+    background-color: rgb(20, 107, 107);
+    height: 80px;
+    max-width: 100%;
+    margin-top: -10px;
+}
+
+
+.main{
+    display: inline-block;
+    margin-top: 30vh;
+    margin-right: 30px;
+}
+
+.formArea{
+    display: inline-block;
+}
+
+form{
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+FORM:hover{
+    background-color: rgba(95, 18, 18, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+body::after{
+    background-color: black;
+    opacity: 90%;
+}
+
+.paragraph{
+    margin-top: -10px;
+    font-weight: 500;
+}
+
+input{
+    border-radius: 7px;
+    height: 25px;
+    border: none;
+}
+
+button{
+    border-radius: 7px;
+    height: 25px;
+    border: none;
+    margin-top: 7px;
+
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="indexStyle.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <title>helper.Request Cleaners</title>
+</head>
+<body>
+    
+
+    <nav class="navbar">
+        <div>
+            <a class="logo">HELPER.request</a>
+        </div>
+        <div class="navContent">
+            <a href="index.html" style=" color: inherit;">Home</a>
+            <a>Help</a>
+            <a oncklick="reveal()">More</a>
+            <a>Set Location</a>
+            <a>Freelance</a>
+            <button class="darkMode">Dark Mode</button>
+
+            <a href="account.html">crewate account</a>
+        </div>
+    </nav>
+
+    <div class="bodyText">
+       
+        <div class="introText" style="display: none;">
+            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
+            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+        </div>
+
+        <h1>Cleaners</h1>
+
+         <div class="searchArea">
+            <button id="searchBtn">Search</button>
+           <input class="srchInput" type="text" placeholder="What are you looking for?">
+            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
+        </div>
+        <button oncklick="reveal()">Click</button>
+
+    </div>
+
+
+   </div>
+
+    <div class="main">
+        <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <h4>rating:</h4>
+                <p>Nanny</p>
+                <p>12 Months experience</p>
+                <p>R200/h</p>
+                <p>Centurion,Pretoria</p>
+                <button >Enquire</button>
+                <button>Hire</button>
+                <button>View Profile</button>
+                
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <h4>rating:</h4>
+                <p>Nanny</p>
+                <p>36 Months experience</p>
+                <p>R200/h</p>
+                <p>Centurion,Pretoria</p>
+                <button >Enquire</button>
+                <button>Hire</button>
+                <button>View Profile</button>
+                
+                
+            </div>
+        </div>
+        
+
+         <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <p>12 Months experience</p>
+                <button >Enquire</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>3 Years experience</p>
+                <button>Enquire</button>
+            </div>
+        </div>
+
+        
+<br>
+         <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <p>12 Months experience</p>
+                <button >Enquire</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>3 Years experience</p>
+                <button>Enquire</button>
+            </div>
+        </div>
+        
+         <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <p>12 Months experience</p>
+                <button >Enquire</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>3 Years experience</p>
+                <button>Enquire</button>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <p>12 Months experience</p>
+                <button >Enquire</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>3 Years experience</p>
+                <button>Enquire</button>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero1" src="male helper.png">
+            <div>
+                <h4>John Doe</h4>
+                <p>12 Months experience</p>
+                <button >Enquire</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="container">
+            <img class="hero2" src="female helper.png">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>3 Years experience</p>
+                <button>Enquire</button>
+            </div>
+
+            
+
+        </div>
+           
+
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER.reques</div>
+        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
+        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+    </footer>
+
+    <script>
+        
+function myFunction() {
+  let text;
+  let person = prompt("Please enter your location for better results:", "Mbombela");
+  if (person == null || person == "") {
+    text = "User cancelled the prompt.";
+  } else {
+    text = "Hello " + person + "! How are you today?";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+
+
+    </script>
+
+    <script src="index.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

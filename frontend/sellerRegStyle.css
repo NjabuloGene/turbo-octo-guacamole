@@ -1,0 +1,42 @@
+.navbar{
+    background-color: rgb(19, 41, 20);
+    height: 100px;
+    margin-top: -10px;
+}
+
+
+button{
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    height: 48px;
+    background-color: rgb(47, 47, 47);
+}
+
+.hero {
+  display: flex; 
+  justify-content: space-between; /* Optional: Distributes space evenly between items */
+}
+
+.nanny{
+    display: inline-block;
+    border: 10px;
+    background-color: rgba(34, 3, 62, 0.433);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.helpper{
+    display: inline-block;
+    border: 1px;
+    background-color: rgb(52, 52, 52);
+    border-radius: 3px;
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+}
+

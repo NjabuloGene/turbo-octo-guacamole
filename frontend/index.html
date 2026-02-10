@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="indexStyle.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <title>helper.Request</title>
+</head>
+<body>
+    
+
+    <nav class="navbar">
+        <div>
+            <a class="logo">HELPER.request</a>
+        </div>
+        <div class="navContent">
+            <a href="index.html" style=" color: inherit;">Home</a>
+            <a>Help</a>
+            <a oncklick="reveal()">More</a>
+            <a>Set Location</a>
+            <a>Freelance</a>
+            <a href="login.html" style=" color: inherit;">Login</a>
+            <button class="darkMode">Dark Mode</button>
+
+            <button id="but">AI interview</button>
+            <a href="profile.html">Create account</a>
+        </div>
+    </nav>
+
+    <div class="bodyText">
+       
+        <div class="introText" style="display: none;">
+            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
+            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+        </div>
+
+        <h1>Your Home, Handled.</h1>
+
+         <div class="searchArea">
+            <button id="searchBtn">Search</button>
+           <input class="srchInput" type="text" placeholder="What are you looking for?">
+            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
+        </div>
+        <!--<button oncklick="reveal()">Click</button> -->
+
+    </div>
+
+
+    <div style="display: ;" class="whyUs" id="whyUs">
+    <!--    <h5>
+           <span class="whyUsIn"> Hiring help in 2025 is about reclaiming your time and peace of mind by delegating household and childcare responsibilities to trusted professionals.
+             A comprehensive platform for this purpose typically provides the following:
+    Vetted and Trained Professionals: Access a database of thousands of helpers, including nannies, housekeepers, caregivers, and au-pairs, who have undergone rigorous background checks, 
+     identity validation, and professional training.
+    Stress Reduction: By handling time-consuming administrative tasks like screening, reference verification, and compliance paperwork,
+     these platforms allow parents to focus on family and professional priorities.
+    Safety and Compatibility: Specialized vetting processes ensure that candidates are not only qualified but also share compatible values and caregiving styles with your family.
+    Convenience and Reliability: Users can apply for and interview candidates from home, often with the security of guaranteed replacements 
+    if a helper is not the right fit or cannot make it to work.
+    Comprehensive Support: Many services assist with ongoing management, including employment contracts, legal compliance,
+     and skills development for the hired staff.
+    For those looking to start their search, platforms like Smart Helper Center,   
+     Domestic Angels, and Sweepsouth offer these structured vetting and placement services to help families achieve a better work-life balance.
+            </span>
+        </h5>
+    -->
+        
+
+    
+    <h2>Reclaim your time and peace of mind. We connect you with vetted professionals so you can focus on family.</h2>
+
+    
+         <p>Zero Admin: We handle the paperwork.</p>
+        <p>Guaranteed Match: Instant replacements.</p>
+         <p>Trust :Escrow payments</p>
+    
+
+    <br>
+    <a href="#" class="btn">Find Your Helper Today</a>
+    </div>
+    
+
+     
+   <a href="otherServices.html" style=" color: inherit;">
+        <div class="services">
+            <img class="otherHelpers" src="pictures/mealPrep.jpg">
+            <h3>Other Services(Meal prep)</h3>
+            <div>
+                
+                <h4>Everything else you need!</h4>
+                
+                <p>Meal prep</p>
+                <p>Plumbers</p>
+                <p>Electricians</p>
+
+                <button>View</button>
+            </div>
+        </div>
+    </a>
+
+    <a href="cleanersSection.html" style=" color: inherit;">
+        <div class="services">
+            <img class="cleanerImage" src="pictures/cleaning.jpg">
+            <h3>Cleaners</h3>
+            <div>
+                <h4>Get cleaners without the stress</h4>
+                
+                <p>Vetted</p>
+                <p>South African</p>
+                <p>Trustworthy</p>
+
+                <button>View</button>
+            </div>
+        </div>
+    </a>
+
+    <a href="nanniesPage.html" style=" color: inherit;">
+        <div class="services">
+            <img class="nannyImage" src="pictures/nanny.jpg">
+            <h3>Nannies</h3>
+            <div>
+                 <h4>Background checked Nannies <br> at the comfort of your home</h4>
+                
+                  <p>Vetted</p>
+                <p>South African</p>
+                <p>Trustworthy</p>
+
+
+                <button>View</button>
+            </div>
+        </div>
+    </a>
+
+    <a href="elderlyCare.html" style=" color: inherit;">
+        <div class="services">
+            <img class="elderlyHelper" src="pictures/elderlyHelper.jpg">
+            <h3>Elderly Care</h3>
+            <div>
+               
+            </div>  <h4>Background checked Nurses/Care workers <br> at the comfort of your home</h4>
+                
+                  <p>Vetted</p>
+                <p>South African</p>
+                <p>Trustworthy</p>
+
+                <button>View</button>
+
+        </div>
+    </a>
+
+   </div>
+
+    
+         
+
+ 
+
+   
+
+    <footer>
+        <div class="footer-logo">HELPER.reques</div>
+        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
+        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+    </footer>
+
+    <script>
+        
+function myFunction() {
+  let text;
+  let person = prompt("Please enter your location for better results:", "Mbombela");
+  if (person == null || person == "") {
+    text = "User cancelled the prompt.";
+  } else {
+    text = "Hello " + person + "! How are you today?";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+
+
+    </script>
+
+    <script src="index.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

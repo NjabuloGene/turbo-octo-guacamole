@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="indexStyle.css">
+    <link rel="stylesheet" href="profileStyle.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
+    <title>helper.Request</title>
+</head>
+<body>
+    
+
+    <nav class="navbar">
+        <div>
+            <a class="logo">HELPER.request</a>
+        </div>
+        <div class="navContent">
+            <a href="index.html" style=" color: inherit;">Home</a>
+            <a>Help</a>
+            <a oncklick="reveal()">More</a>
+            <a>Set Location</a>
+            <a>Freelance</a>
+            <button class="darkMode">Dark Mode</button>
+
+            <button id="but">AI interview</button>
+            <a href="account.html">Create account</a>
+        </div>
+    </nav>
+
+    <div class="bodyText">
+       
+        <div class="introText" style="display: none;">
+            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
+            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+        </div>
+
+        <h1>Setup and Verify your Profile</h1>
+
+         <div class="searchArea">
+            <button id="searchBtn">Search</button>
+           <input class="srchInput" type="text" placeholder="What are you looking for?">
+            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
+        </div>
+        <button oncklick="reveal()">Click</button>
+
+    </div>
+    
+
+    <h1>Your Home, Handled.</h1>
+    <h2>Reclaim your time and peace of mind. We connect you with vetted professionals so you can focus on family.</h2>
+    
+   
+
+   
+    <a href="elderlyCare.html" style=" color: inherit;">
+        <div class="userProfile">
+
+             <div class=""questionaire>
+                    <p  id="rotator">Your questions will display here</p>
+                </div>
+            
+            <div class= ></div>
+
+            
+             <div id="video-container" class="videoContainer">
+
+    <video id="live-stream" autoplay muted playsinline ></video>
+    <br>
+    <!-- We use ID-based selection and NO inline 'onclick' to prevent scope issues -->
+    <button type="button" id="btn-action">Start Verification</button>
+    <p id="error-display" style="color: red;"></p>
+</div>
+
+            
+             <div>
+                 <p>ID NO</p>
+             <input id="idNumber" type="text" required>
+
+            </div>
+
+
+
+            <div>
+                <p>ID card or book</p>
+            <input id="idBook" type="file">
+            </div>
+            
+            <div>
+              <p>Qualifications</p>
+            <input id="qualifications" type="file">  
+            </div>
+
+
+            <div>
+             <p>Gender</p>
+            <select >
+                <option>
+                    Male
+                </option>
+                <option>
+                    Female
+                </option>
+            </select>   
+
+            
+
+            </div>
+
+           
+
+        <input type="range">
+        </div>
+    </a>
+
+   </div>
+ 
+
+    <footer>
+        <div class="footer-logo">HELPER.reques</div>
+        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
+        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+    </footer>
+
+ 
+         </script>
+
+          <script src="register.js"></script>
+        <script src="mainAccess.js"></script>
+        <script src="profile.js"></script>
+</body>
+</html>
