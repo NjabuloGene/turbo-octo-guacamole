@@ -1,190 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="indexStyle.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helper.Request — Your Home, Handled.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
-    <title>helper.Request</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
 </head>
 <body>
-    
 
     <nav class="navbar">
-        <div>
-            <a class="logo">HELPER.request</a>
-        </div>
-        <div class="navContent">
-            <a href="index.html" style=" color: inherit;">Home</a>
-            <a>Help</a>
-            <a oncklick="reveal()">More</a>
-            <a>Set Location</a>
-            <a>Freelance</a>
-            <a href="login.html" style=" color: inherit;">Login</a>
-            <button class="darkMode">Dark Mode</button>
-
-            <button id="but">AI interview</button>
-            <a href="profile.html">Create account</a>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks">
+                <!-- Dynamically populated by navbar.js -->
+            </ul>
+            <div class="nav-actions">
+                <!-- Dynamically populated by navbar.js -->
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <div class="bodyText">
-       
-        <div class="introText" style="display: none;">
-            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
-            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+    <section class="hero">
+        <div class="hero-deco hero-deco-1"></div>
+        <div class="hero-deco hero-deco-2"></div>
+        <div class="hero-eyebrow">South Africa's trusted home service platform</div>
+        <h1>Your Home,<br><em>Handled.</em></h1>
+        <p class="hero-sub">Connect with vetted, background-checked professionals — so you can focus on what matters most.</p>
+        <div class="search-wrap">
+            <div class="search-bar">
+                <input type="text" placeholder="What service are you looking for?" id="searchInput">
+                <button class="loc-btn" onclick="setLocation()">📍 <span>Set Location</span></button>
+                <button class="go-btn">→</button>
+            </div>
         </div>
-
-        <h1>Your Home, Handled.</h1>
-
-         <div class="searchArea">
-            <button id="searchBtn">Search</button>
-           <input class="srchInput" type="text" placeholder="What are you looking for?">
-            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
+        <div class="trust-pills">
+            <div class="trust-pill"><span class="icon">🛡️</span> Background Checked</div>
+            <div class="trust-pill"><span class="icon">🔄</span> Guaranteed Match</div>
+            <div class="trust-pill"><span class="icon">💳</span> Escrow Payments</div>
+            <div class="trust-pill"><span class="icon">⭐</span> Reviewed Professionals</div>
         </div>
-        <!--<button oncklick="reveal()">Click</button> -->
+    </section>
 
+    <div class="value-strip">
+        <div class="value-strip-inner">
+            <div class="value-item"><span class="num">2,400+</span>&nbsp;Verified Helpers</div>
+            <div class="value-item"><span class="num">9</span>&nbsp;Provinces Covered</div>
+            <div class="value-item"><span class="num">48h</span>&nbsp;Average Match Time</div>
+            <div class="value-item"><span class="num">98%</span>&nbsp;Client Satisfaction</div>
+        </div>
     </div>
 
+    <section class="section">
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Find the right<br>help, fast.</h2>
+        <p class="section-sub">From daily cleaning to specialised elder care — every professional is vetted and ready.</p>
+        <div class="services-grid">
+            <a href="cleanersSection.html" class="service-card scroll-reveal">
+                <div class="card-img-wrap">
+                    <img class="card-img" src="pictures/cleaning.jpg" alt="Cleaners">
+                    <div class="card-badge">Popular</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Cleaners</h3>
+                    <p class="card-desc">Reliable, trustworthy domestic cleaners without the hiring headache.</p>
+                    <div class="card-tags"><span class="tag">Vetted</span><span class="tag">South African</span><span class="tag">Insured</span></div>
+                    <span class="card-cta">View cleaners →</span>
+                </div>
+            </a>
+            <a href="nanniesPage.html" class="service-card scroll-reveal">
+                <div class="card-img-wrap"><img class="card-img" src="pictures/nanny.jpg" alt="Nannies"></div>
+                <div class="card-body">
+                    <h3 class="card-title">Nannies</h3>
+                    <p class="card-desc">Background-checked childcare professionals at the comfort of your home.</p>
+                    <div class="card-tags"><span class="tag">Background Checked</span><span class="tag">CPR Certified</span></div>
+                    <span class="card-cta">View nannies →</span>
+                </div>
+            </a>
+            <a href="elderlyCare.html" class="service-card scroll-reveal">
+                <div class="card-img-wrap"><img class="card-img" src="pictures/elderlyHelper.jpg" alt="Elderly Care"></div>
+                <div class="card-body">
+                    <h3 class="card-title">Elderly Care</h3>
+                    <p class="card-desc">Qualified nurses and care workers dedicated to your loved ones.</p>
+                    <div class="card-tags"><span class="tag">Qualified Nurses</span><span class="tag">24/7 Available</span></div>
+                    <span class="card-cta">View carers →</span>
+                </div>
+            </a>
+            <a href="otherServices.html" class="service-card scroll-reveal">
+                <div class="card-img-wrap"><img class="card-img" src="pictures/mealPrep.jpg" alt="Other Services"></div>
+                <div class="card-body">
+                    <h3 class="card-title">More Services</h3>
+                    <p class="card-desc">Meal prep, plumbers, electricians and everything else your home needs.</p>
+                    <div class="card-tags"><span class="tag">Meal Prep</span><span class="tag">Plumbers</span><span class="tag">Electricians</span></div>
+                    <span class="card-cta">Explore all →</span>
+                </div>
+            </a>
+        </div>
+    </section>
 
-    <div style="display: ;" class="whyUs" id="whyUs">
-    <!--    <h5>
-           <span class="whyUsIn"> Hiring help in 2025 is about reclaiming your time and peace of mind by delegating household and childcare responsibilities to trusted professionals.
-             A comprehensive platform for this purpose typically provides the following:
-    Vetted and Trained Professionals: Access a database of thousands of helpers, including nannies, housekeepers, caregivers, and au-pairs, who have undergone rigorous background checks, 
-     identity validation, and professional training.
-    Stress Reduction: By handling time-consuming administrative tasks like screening, reference verification, and compliance paperwork,
-     these platforms allow parents to focus on family and professional priorities.
-    Safety and Compatibility: Specialized vetting processes ensure that candidates are not only qualified but also share compatible values and caregiving styles with your family.
-    Convenience and Reliability: Users can apply for and interview candidates from home, often with the security of guaranteed replacements 
-    if a helper is not the right fit or cannot make it to work.
-    Comprehensive Support: Many services assist with ongoing management, including employment contracts, legal compliance,
-     and skills development for the hired staff.
-    For those looking to start their search, platforms like Smart Helper Center,   
-     Domestic Angels, and Sweepsouth offer these structured vetting and placement services to help families achieve a better work-life balance.
-            </span>
-        </h5>
-    -->
-        
-
-    
-    <h2>Reclaim your time and peace of mind. We connect you with vetted professionals so you can focus on family.</h2>
-
-    
-         <p>Zero Admin: We handle the paperwork.</p>
-        <p>Guaranteed Match: Instant replacements.</p>
-         <p>Trust :Escrow payments</p>
-    
-
-    <br>
-    <a href="#" class="btn">Find Your Helper Today</a>
-    </div>
-    
-
-     
-   <a href="otherServices.html" style=" color: inherit;">
-        <div class="services">
-            <img class="otherHelpers" src="pictures/mealPrep.jpg">
-            <h3>Other Services(Meal prep)</h3>
-            <div>
-                
-                <h4>Everything else you need!</h4>
-                
-                <p>Meal prep</p>
-                <p>Plumbers</p>
-                <p>Electricians</p>
-
-                <button>View</button>
+    <section class="why-section">
+        <div class="why-inner">
+            <div class="why-text scroll-reveal">
+                <p class="section-label">Why helper.Request</p>
+                <h2 class="section-title">Peace of mind,<br><em style="font-style:italic;color:var(--accent)">built in.</em></h2>
+                <p class="section-sub">We handle the vetting, the admin, and the payments — so your only job is opening the door.</p>
+                <a href="#" class="why-cta">Find Your Helper Today →</a>
+            </div>
+            <div class="why-grid">
+                <div class="why-card scroll-reveal"><span class="icon">🔍</span><h4>Thorough Vetting</h4><p>Every helper passes background checks, reference calls, and skills assessments before joining.</p></div>
+                <div class="why-card scroll-reveal"><span class="icon">🛡️</span><h4>Escrow Payments</h4><p>Your payment is only released once you're satisfied. No disputes, no stress.</p></div>
+                <div class="why-card scroll-reveal"><span class="icon">🤖</span><h4>AI Matching</h4><p>Our AI interview finds the exact right match for your specific household needs.</p></div>
+                <div class="why-card scroll-reveal"><span class="icon">📋</span><h4>Zero Admin</h4><p>Contracts, scheduling, and paperwork handled for you. One less thing to worry about.</p></div>
             </div>
         </div>
-    </a>
-
-    <a href="cleanersSection.html" style=" color: inherit;">
-        <div class="services">
-            <img class="cleanerImage" src="pictures/cleaning.jpg">
-            <h3>Cleaners</h3>
-            <div>
-                <h4>Get cleaners without the stress</h4>
-                
-                <p>Vetted</p>
-                <p>South African</p>
-                <p>Trustworthy</p>
-
-                <button>View</button>
-            </div>
-        </div>
-    </a>
-
-    <a href="nanniesPage.html" style=" color: inherit;">
-        <div class="services">
-            <img class="nannyImage" src="pictures/nanny.jpg">
-            <h3>Nannies</h3>
-            <div>
-                 <h4>Background checked Nannies <br> at the comfort of your home</h4>
-                
-                  <p>Vetted</p>
-                <p>South African</p>
-                <p>Trustworthy</p>
-
-
-                <button>View</button>
-            </div>
-        </div>
-    </a>
-
-    <a href="elderlyCare.html" style=" color: inherit;">
-        <div class="services">
-            <img class="elderlyHelper" src="pictures/elderlyHelper.jpg">
-            <h3>Elderly Care</h3>
-            <div>
-               
-            </div>  <h4>Background checked Nurses/Care workers <br> at the comfort of your home</h4>
-                
-                  <p>Vetted</p>
-                <p>South African</p>
-                <p>Trustworthy</p>
-
-                <button>View</button>
-
-        </div>
-    </a>
-
-   </div>
-
-    
-         
-
- 
-
-   
+    </section>
 
     <footer>
-        <div class="footer-logo">HELPER.reques</div>
-        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
-        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
     </footer>
 
+    <script src="navbar.js"></script>
     <script>
+        // Set location function
+        window.setLocation = function() {
+            const loc = prompt('Enter your city or area:', localStorage.getItem('userLocation') || 'Pretoria');
+            if (loc && loc.trim()) { 
+                localStorage.setItem('userLocation', loc.trim()); 
+                alert(`Location set to ${loc.trim()}`); 
+            }
+        };
+
+        // Scroll reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => { 
+                if (e.isIntersecting) { 
+                    setTimeout(() => e.target.classList.add('visible'), i * 80); 
+                    observer.unobserve(e.target); 
+                } 
+            });
+        }, { threshold: 0.1 });
         
-function myFunction() {
-  let text;
-  let person = prompt("Please enter your location for better results:", "Mbombela");
-  if (person == null || person == "") {
-    text = "User cancelled the prompt.";
-  } else {
-    text = "Hello " + person + "! How are you today?";
-  }
-  document.getElementById("demo").innerHTML = text;
-}
-
-
-    </script>
-
-    <script src="index.js"></script>
-    <script>
-        
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

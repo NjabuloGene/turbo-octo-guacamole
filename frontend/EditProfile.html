@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helper.request · Create Your Professional Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">HELPER.request</div>
+        <div class="navContent">
+            <a href="#" onclick="window.switchPage('home')">Home</a>
+            <a href="#" onclick="window.switchPage('help')">Help</a>
+            <a href="#" onclick="window.reveal()">More</a>
+            <a href="#" onclick="window.setLocation()">Set Location</a>
+            <a href="#" onclick="window.switchPage('freelance')">Freelance</a>
+            <button class="darkMode" id="darkModeToggle">Dark Mode</button>
+            <a href="#" onclick="window.switchPage('account')">create account</a>
+        </div>
+    </nav>
+
+    <!-- Service Selection Banner -->
+    <div class="service-banner">
+        <div class="service-selector">
+            <span class="selector-label">I'm looking for:</span>
+            <div class="selector-buttons">
+                <button class="service-btn active" onclick="window.switchService('nannies')">👶 Nannies</button>
+                <button class="service-btn" onclick="window.switchService('cleaners')">🧹 Cleaners</button>
+                <button class="service-btn" onclick="window.switchService('nurses')">🏥 Nurses</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Creator Section -->
+    <div class="profile-creator-section" id="profileCreator">
+        <div class="creator-header">
+            <h2>✎ Create Your Professional Profile</h2>
+            <p class="creator-subtitle">Fill this out to appear in the <span id="selectedServiceDisplay">Nannies</span> section</p>
+        </div>
+        
+        <!-- Progress Indicator -->
+        <div class="profile-progress">
+            <div class="progress-steps">
+                <div class="progress-step completed">1</div>
+                <div class="progress-step active">2</div>
+                <div class="progress-step">3</div>
+                <div class="progress-step">4</div>
+            </div>
+            <div class="progress-labels">
+                <span>Basic Info</span>
+                <span>Photos</span>
+                <span>Documents</span>
+                <span>Video</span>
+            </div>
+        </div>
+
+        <!-- Media Upload Tabs -->
+        <div class="media-tabs">
+            <button class="tab-btn active" onclick="window.switchTab('basic')">📋 Basic Info</button>
+            <button class="tab-btn" onclick="window.switchTab('photos')">📸 Photos</button>
+            <button class="tab-btn" onclick="window.switchTab('documents')">📄 Documents</button>
+            <button class="tab-btn" onclick="window.switchTab('video')">🎥 Video</button>
+        </div>
+
+        <!-- Basic Info Tab -->
+        <div class="tab-content active" id="basic-tab">
+            <div class="profile-form">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="profileName" placeholder="Enter your full name" value="Alex Rivera">
+                </div>
+                <div class="form-group">
+                    <label>Professional Title</label>
+                    <input type="text" id="profileRole" placeholder="e.g. Special Needs Nanny" value="Special Needs Nanny">
+                </div>
+                <div class="form-group">
+                    <label>Hourly Rate (ZAR)</label>
+                    <input type="text" id="profileRate" placeholder="e.g. R250/hour" value="R280/hour">
+                </div>
+                <div class="form-group">
+                    <label>Experience</label>
+                    <input type="text" id="profileExp" placeholder="e.g. 24 months" value="28 months">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="profileLoc" placeholder="City, Area" value="Centurion, Pretoria">
+                </div>
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <select id="profileService">
+                        <option value="nannies" selected>👶 Nanny</option>
+                        <option value="cleaners">🧹 Cleaner</option>
+                        <option value="nurses">🏥 Nurse</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Rating</label>
+                    <input type="text" id="profileRating" value="★★★★☆" readonly disabled style="background-color: #e4ded6;">
+                </div>
+                <div class="form-group full-width">
+                    <label>Bio / About You</label>
+                    <textarea id="profileBio" placeholder="Tell people about yourself...">First aid certified • Infant sleep trainer • 5 years volunteer experience</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photos Tab -->
+        <div class="tab-content" id="photos-tab">
+            <div class="media-upload-section">
+                <!-- ENHANCED: Profile Picture Section with Preview -->
+                <div class="profile-picture-section">
+                    <h3>Profile Picture <span class="required">*</span></h3>
+                    <p class="section-hint">This will be the first thing clients see. A clear, professional photo helps you stand out.</p>
+                    
+                    <div class="profile-picture-container">
+                        <!-- Live Preview of Profile Picture -->
+                        <div class="profile-picture-preview" id="profilePicPreview">
+                            <img id="profilePicPreviewImg" src="" alt="Profile preview" style="display: none;">
+                            <div class="profile-picture-placeholder" id="profilePicPlaceholder">
+                                <span class="placeholder-icon">📸</span>
+                                <span class="placeholder-text">Your photo will appear here</span>
+                            </div>
+                        </div>
+
+                        <!-- Upload Area -->
+                        <div class="upload-area enhanced" id="profilePicUpload">
+                            <label for="profilePicInput" style="cursor: pointer; display: block; width: 100%; height: 100%;">
+                                <div class="upload-placeholder">
+                                    <span class="upload-icon">📸</span>
+                                    <p><strong>Click to upload profile picture</strong></p>
+                                    <small>Recommended: Square image, max 5MB</small>
+                                    <small style="display: block; margin-top: 8px; color: var(--primary-teal);">JPG, PNG, or GIF</small>
+                                </div>
+                            </label>
+                            <input type="file" id="profilePicInput" accept="image/*" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENHANCED: Experience Photos Section -->
+                <div class="experience-photos-section">
+                    <h3>Experience Photos</h3>
+                    <p class="section-hint">Showcase your work with photos. Add up to 10 images.</p>
+                    
+                    <div class="photo-grid" id="photoGrid">
+                        <!-- Photo items will be added here dynamically -->
+                        <div class="upload-area small enhanced" id="addPhotoBtn">
+                            <label for="photoInput" style="cursor: pointer; display: block;">
+                                <span class="upload-icon">+</span>
+                                <p>Add Photos</p>
+                                <small>Click to select</small>
+                            </label>
+                            <input type="file" id="photoInput" accept="image/*" multiple style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div class="tab-content" id="documents-tab">
+            <div class="documents-section">
+                <h3>CV / Resume</h3>
+                <p class="section-hint">Upload your CV to show your professional background.</p>
+                <div class="upload-area enhanced" id="cvUpload">
+                    <label for="cvInput" style="cursor: pointer; display: block;">
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">📄</span>
+                            <p><strong>Upload your CV</strong></p>
+                            <small>PDF, DOC, DOCX (Max 10MB)</small>
+                        </div>
+                    </label>
+                    <input type="file" id="cvInput" accept=".pdf,.doc,.docx" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
+                </div>
+
+                <h3 style="margin-top: 30px;">Certificates & Qualifications</h3>
+                <p class="section-hint">Add relevant certificates to boost your credibility.</p>
+                <div class="documents-list" id="certificatesList">
+                    <div class="upload-area small enhanced" id="addCertificateBtn">
+                        <label for="certInput" style="cursor: pointer; display: block;">
+                            <span class="upload-icon">+</span>
+                            <p>Add Certificates</p>
+                            <small>Multiple files allowed</small>
+                        </label>
+                        <input type="file" id="certInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Tab -->
+        <div class="tab-content" id="video-tab">
+            <div class="video-section">
+                <h3>Introduction Video</h3>
+                <p class="section-hint">A short video introduction helps clients connect with you personally.</p>
+                
+                <div class="upload-area video-upload enhanced" id="videoUpload">
+                    <label for="videoInput" style="cursor: pointer; display: block; width: 100%; height: 100%;">
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">🎥</span>
+                            <p><strong>Upload introduction video</strong></p>
+                            <small>MP4, WebM (Max 50MB)</small>
+                            <small style="display: block; margin-top: 8px;">Keep it under 2 minutes for best results</small>
+                        </div>
+                    </label>
+                    <input type="file" id="videoInput" accept="video/mp4,video/webm,video/ogg" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
+                </div>
+                
+                <div class="video-preview" id="videoPreview" style="display: none;">
+                    <video controls width="100%" id="profileVideo">
+                        <source src="" id="videoSource" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <button class="remove-video-btn" onclick="window.removeVideo()">Remove Video</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="window.createProfile()">
+                    <span class="btn-icon">✨</span>
+                    Create Profile & Publish
+                </button>
+                <button class="btn-secondary" onclick="window.clearForm()">
+                    <span class="btn-icon">🗑️</span>
+                    Clear Form
+                </button>
+            </div>
+            <p class="form-note">✨ Your profile will be visible to clients immediately after creation</p>
+        </div>
+    </div>
+
+    <!-- ========== LIVE PREVIEW SECTION ========== -->
+    <div class="live-profile-preview">
+        <div class="preview-header-with-icon">
+            <span class="preview-icon">👁️</span>
+            <h3>Live Preview - What Others Will See</h3>
+        </div>
+        
+        <div class="preview-card">
+            <div class="preview-header">
+                <div class="preview-avatar" id="previewAvatar">
+                    <img id="previewProfilePic" src="" alt="Profile" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 7px;">
+                    <span id="avatarInitials">AR</span>
+                </div>
+                <div class="preview-details">
+                    <div class="name" id="previewFullName">Alex Rivera</div>
+                    <p><strong id="previewRole">Special Needs Nanny</strong> • <span id="previewRate">R280/hour</span></p>
+                    <p>⭐ <span id="previewRating">★★★★☆</span> • <span id="previewExp">28 months</span> experience</p>
+                    <p>📍 <span id="previewLoc">Centurion, Pretoria</span></p>
+                    <span class="badge" id="previewBadge">Available Now</span>
+                </div>
+            </div>
+            
+            <div class="preview-bio">
+                <p id="previewBio">First aid certified • Infant sleep trainer • 5 years volunteer experience</p>
+            </div>
+            
+            <!-- Media previews -->
+            <div class="profile-media-preview">
+                <div class="preview-section">
+                    <span class="preview-section-title">Photos</span>
+                    <div class="experience-photos" id="previewPhotos"></div>
+                </div>
+                <div class="preview-section">
+                    <span class="preview-section-title">Documents</span>
+                    <div class="documents-badge" id="previewDocs"></div>
+                </div>
+                <div class="video-indicator" id="previewVideoIndicator" style="display: none;">
+                    <span>🎥 Has introduction video</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Area -->
+    <div class="bodyText">
+        <h1>Find Your Perfect <span id="currentServiceTitle">Nanny</span></h1>
+        <div class="searchArea">
+            <button id="searchBtn">🔍</button>
+            <input class="srchInput" type="text" id="searchInput" placeholder="Search by name, location, or speciality...">
+            <button id="locationBtn" onclick="window.setLocation()">📍 Set Location</button>
+        </div>
+    </div>
+
+    <!-- Dynamic Service Cards -->
+    <div class="main" id="serviceCards"></div>
+
+    <!-- Other Services Navigation -->
+    <div class="servicesContainer">
+        <div class="service-nav-card" onclick="window.switchService('nannies')">
+            <img class="service-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='220' viewBox='0 0 300 220'%3E%3Crect width='300' height='220' fill='%2300a098'/%3E%3Ccircle cx='150' cy='80' r='40' fill='%23e4ded6'/%3E%3C/svg%3E" alt="nannies">
+            <h3>Nannies</h3>
+            <p>Professional child care</p>
+            <button>Browse Nannies</button>
+        </div>
+
+        <div class="service-nav-card" onclick="window.switchService('cleaners')">
+            <img class="service-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='220' viewBox='0 0 300 220'%3E%3Crect width='300' height='220' fill='%23339893'/%3E%3Ccircle cx='150' cy='80' r='40' fill='%23e4ded6'/%3E%3Crect x='110' y='120' width='80' height='60' fill='%230c2624'/%3E%3C/svg%3E" alt="cleaners">
+            <h3>Cleaners</h3>
+            <p>Professional home cleaning</p>
+            <button>Browse Cleaners</button>
+        </div>
+
+        <div class="service-nav-card" onclick="window.switchService('nurses')">
+            <img class="service-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='220' viewBox='0 0 300 220'%3E%3Crect width='300' height='220' fill='%2300a098'/%3E%3Ccircle cx='150' cy='80' r='40' fill='%23e4ded6'/%3E%3Cpath d='M120 140 L180 140 L170 180 L130 180 Z' fill='%230c2624'/%3E%3C/svg%3E" alt="nurses">
+            <h3>Nurses</h3>
+            <p>Qualified medical care</p>
+            <button>Browse Nurses</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER.request</div>
+        <p class="footer-text">Get whom you need, When you need them.<br>Anywhere in South Africa.</p>
+        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+    </footer>
+
+    <script src="profileControl.js"></script>
+</body>
+</html>

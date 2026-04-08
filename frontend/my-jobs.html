@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Jobs · AgentHelper.Source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <style>
+        .jobs-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .jobs-header {
+            margin-bottom: 2rem;
+        }
+        .jobs-header h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .filters-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+        .filter-input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            color: var(--ink);
+        }
+        .job-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .job-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+        .job-company {
+            color: var(--teal);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .job-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+        }
+        .job-description {
+            color: var(--ink-muted);
+            margin: 0.75rem 0;
+            line-height: 1.6;
+        }
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+        }
+        .skill-badge {
+            background: var(--teal-light);
+            color: var(--teal-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .salary {
+            font-weight: 600;
+            color: var(--teal);
+        }
+        .apply-btn {
+            padding: 0.5rem 1.5rem;
+        }
+        .already-applied {
+            color: var(--ink-muted);
+            font-size: 0.85rem;
+        }
+        .loading-state, .empty-state {
+            text-align: center;
+            padding: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="jobs-container">
+        <div class="jobs-header">
+            <h1>Find Jobs</h1>
+            <p>Discover opportunities that match your skills</p>
+        </div>
+
+        <div class="filters-bar">
+            <input type="text" id="searchInput" class="filter-input" placeholder="Search by title...">
+            <input type="text" id="locationFilter" class="filter-input" placeholder="Location">
+            <select id="employmentFilter" class="filter-input">
+                <option value="">All Types</option>
+                <option value="full_time">Full-time</option>
+                <option value="part_time">Part-time</option>
+                <option value="contract">Contract</option>
+            </select>
+            <button id="searchBtn" class="btn-primary">Search</button>
+        </div>
+
+        <div id="jobsList" class="jobs-list">
+            <div class="loading-state"><div class="loading-spinner"></div><p>Loading jobs...</p></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="jobs.js"></script>
+</body>
+</html>

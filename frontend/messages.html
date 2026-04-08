@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages · helper.request</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="messages-container">
+        <div class="conversations-sidebar">
+            <div class="conversations-header">
+                <h3>Messages</h3>
+                <p class="section-hint" style="font-size: 0.75rem;">Your conversations</p>
+            </div>
+            <div class="conversations-list" id="conversationsList">
+                <div class="loading-state"><div class="loading-spinner"></div><p>Loading conversations...</p></div>
+            </div>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-header" id="chatHeader">
+                <div class="chat-user-info">
+                    <div class="chat-user-avatar">💬</div>
+                    <div>
+                        <div class="chat-user-name">Select a conversation</div>
+                        <div class="chat-user-role">Choose a chat to start messaging</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="empty-state">
+                    <div class="empty-icon">💬</div>
+                    <div class="empty-title">No conversation selected</div>
+                    <div class="empty-message">Click on a conversation from the list to view messages</div>
+                </div>
+            </div>
+            <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                <input type="text" class="chat-input" id="messageInput" placeholder="Type a message...">
+                <button class="btn-primary" id="sendMessageBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="messages.js"></script>
+</body>
+</html>

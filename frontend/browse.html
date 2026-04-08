@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Helpers · helper.request</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <link rel="stylesheet" href="browse.css">
+</head>
+<body>
+
+    <!-- NAVBAR (consistent with all pages) -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="cleanersSection.html">Cleaners</a></li>
+                <li><a href="nanniesPage.html">Nannies</a></li>
+                <li><a href="elderlyCare.html">Elderly Care</a></li>
+                <li><a href="otherServices.html">More Services</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-ghost">Login</a>
+                <a href="account.html" class="btn-outline">Sign Up</a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="browse-hero">
+        <h1>Find Your Perfect Helper</h1>
+        <p>Browse verified professionals ready to help</p>
+    </div>
+
+    <!-- SEARCH & FILTERS -->
+    <div class="filters-section">
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by name, role, or keywords...">
+            <button id="searchBtn" class="search-btn">🔍 Search</button>
+        </div>
+        
+        <div class="filter-row">
+            <select id="serviceFilter" class="filter-select">
+                <option value="">All Services</option>
+                <option value="nannies">👶 Nannies</option>
+                <option value="cleaners">🧹 Cleaners</option>
+                <option value="nurses">🏥 Nurses</option>
+            </select>
+            
+            <select id="locationFilter" class="filter-select">
+                <option value="">All Locations</option>
+                <option value="johannesburg">Johannesburg</option>
+                <option value="pretoria">Pretoria</option>
+                <option value="cape town">Cape Town</option>
+                <option value="durban">Durban</option>
+            </select>
+            
+            <select id="ratingFilter" class="filter-select">
+                <option value="">Any Rating</option>
+                <option value="4">4+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+                <option value="5">5 Stars Only</option>
+            </select>
+            
+            <select id="sortFilter" class="filter-select">
+                <option value="rating">Sort by: Rating</option>
+                <option value="newest">Newest First</option>
+                <option value="experience">Most Experienced</option>
+            </select>
+        </div>
+        
+        <div class="active-filters" id="activeFilters"></div>
+    </div>
+
+    <!-- RESULTS HEADER -->
+    <div class="results-header">
+        <span id="resultsCount" class="results-count">Loading professionals...</span>
+        <button id="clearFilters" class="clear-filters" style="display: none;">Clear all filters</button>
+    </div>
+
+    <!-- PROFILES GRID -->
+    <div id="profilesGrid" class="cards-grid">
+        <!-- Profiles will be loaded here -->
+    </div>
+
+    <!-- LOADING STATE -->
+    <div id="loadingSpinner" class="loading-state" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading professionals...</p>
+    </div>
+    
+    <!-- ERROR STATE -->
+    <div id="errorMessage" class="error-state" style="display: none;">
+        <div class="empty-icon">⚠️</div>
+        <div class="empty-title">Something went wrong</div>
+        <div class="empty-message" id="errorText"></div>
+        <button class="btn-primary" onclick="location.reload()">Try Again</button>
+    </div>
+    
+    <!-- NO RESULTS STATE -->
+    <div id="noResults" class="empty-state" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-title">No helpers found</div>
+        <div class="empty-message">Try adjusting your filters or search terms</div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const darkToggle = document.getElementById('darkToggle');
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.body.classList.add('dark'); 
+            if (darkToggle) darkToggle.textContent = '☀️'; 
+        }
+        if (darkToggle) {
+            darkToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                const isDark = document.body.classList.contains('dark');
+                darkToggle.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        }
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+            navLinks.querySelectorAll('a').forEach(a => 
+                a.addEventListener('click', () => navLinks.classList.remove('open'))
+            );
+        }
+    </script>
+    
+    <script src="navbar.js"></script>
+    <script src="browse.js"></script>
+</body>
+</html>

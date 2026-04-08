@@ -342,3 +342,596 @@ input{
     
 }
 
+/* Add to your existing CSS */
+
+.service-filter {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: transparent;
+    border: 2px solid var(--primary-teal);
+    color: var(--primary-dark-teal);
+    padding: 8px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.filter-btn.active {
+    background-color: var(--primary-teal);
+    color: white;
+}
+
+.filter-btn:hover {
+    background-color: var(--primary-teal);
+    color: white;
+}
+
+.results-count {
+    text-align: left;
+    margin: 0 40px 20px;
+    font-weight: 600;
+    color: var(--primary-dark-teal);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    color: var(--primary-dark-teal);
+    width: 100%;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 40px;
+    background-color: var(--primary-teal);
+    border-radius: 7px;
+    color: var(--primary-dark-teal);
+    width: 100%;
+}
+
+.no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    margin-bottom: 20px;
+}
+
+.no-results .btn-primary {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-dark-teal);
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.error-message {
+    text-align: center;
+    padding: 60px 40px;
+    background-color: #ffebee;
+    border-radius: 7px;
+    color: #c62828;
+    width: 100%;
+}
+
+.error-message button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: var(--primary-teal);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--primary-dark-teal);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+.card-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.card-buttons button {
+    flex: 1;
+    min-width: 70px;
+    padding: 8px 5px;
+    font-size: 0.8rem;
+}
+
+.btn-enquire {
+    background-color: var(--primary-teal);
+    color: white;
+    border: none;
+}
+
+.btn-hire {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.btn-view {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+}
+
+/* Add to your existing indexStyle.css */
+
+/* Navbar improvements */
+.navContent {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.auth-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+.signup-btn {
+    background-color: var(--primary-teal);
+    color: var(--primary-dark-teal) !important;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 7px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 3px 4px 10px 6px rgba(0, 160, 152, 0.1);
+    border: 1px solid var(--primary-teal);
+    transition: transform 0.3s;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.benefit-card h3 {
+    color: var(--primary-dark-teal);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.benefit-card p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 40px;
+}
+
+.service-card {
+    background: white;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 3px 4px 10px 6px rgba(0, 160, 152, 0.1);
+    border: 1px solid var(--primary-teal);
+    transition: all 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 3px 4px 20px 6px rgba(0, 160, 152, 0.2);
+}
+
+.service-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.05);
+}
+
+.service-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-content h3 {
+    font-size: 1.5rem;
+    color: var(--primary-dark-teal);
+    margin-bottom: 5px;
+    font-family: "BBH Bartle", sans-serif;
+}
+
+.service-tagline {
+    color: var(--primary-teal);
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.service-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.service-features span {
+    background: #e4ded6;
+    color: var(--primary-dark-teal);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-teal);
+    color: var(--primary-dark-teal);
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.btn-outline:hover {
+    background: var(--primary-teal);
+    color: var(--primary-dark-teal);
+}
+
+.btn-primary {
+    display: inline-block;
+    background: var(--primary-teal);
+    color: var(--primary-dark-teal);
+    padding: 12px 30px;
+    border-radius: 7px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    background: #00b3aa;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 160, 152, 0.4);
+}
+
+/* Why Us section */
+.whyUs {
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--bg-cream);
+}
+
+.whyUs h2 {
+    font-size: 2rem;
+    color: var(--primary-dark-teal);
+    font-family: "BBH Bartle", sans-serif;
+    margin-bottom: 10px;
+}
+
+.whyUs .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    margin-bottom: 20px;
+}
+
+/* Footer improvements */
+.footer-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #e4ded6;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--primary-teal);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navContent {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .auth-section {
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+    
+    .service-card {
+        max-width: 100%;
+    }
+}
+
+/* Add to your style2.css */
+
+/* User greeting and role badge */
+.user-greeting {
+    color: #e4ded6;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.role-helper {
+    background: #00a098;
+    color: #0c2624;
+}
+
+.role-hirer {
+    background: #339893;
+    color: white;
+}
+
+.role-admin {
+    background: #dc3545;
+    color: white;
+}
+
+/* Navigation highlights */
+.nav-highlight {
+    background: rgba(0, 160, 152, 0.2);
+    border-radius: 7px;
+    padding: 8px 12px !important;
+}
+
+.nav-interview {
+    background: #ffc107;
+    color: #0c2624 !important;
+    border-radius: 7px;
+    padding: 8px 12px !important;
+    font-weight: 600;
+}
+
+.nav-admin {
+    background: #dc3545;
+    color: white !important;
+    border-radius: 7px;
+    padding: 8px 12px !important;
+    font-weight: 600;
+}
+
+/* Logout button */
+.logout-btn {
+    background: transparent;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .navContent {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--navbar-gray);
+        flex-direction: column;
+        padding: 2rem;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+    
+    .navContent.show {
+        left: 0;
+    }
+    
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+    
+    .nav-right a,
+    .nav-right button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .user-greeting,
+    .role-badge {
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+/// 
+/* Add to your existing styles */
+
+/* User greeting and role badge */
+.user-greeting {
+    color: #e4ded6;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 10px;
+    text-transform: capitalize;
+}
+
+.role-helper {
+    background: #00a098;
+    color: #0c2624;
+}
+
+.role-hirer {
+    background: #339893;
+    color: white;
+}
+
+.role-admin {
+    background: #dc3545;
+    color: white;
+}
+
+/* Navigation highlights */
+.nav-highlight {
+    background: rgba(0, 160, 152, 0.15);
+    border-radius: 7px;
+    padding: 8px 12px !important;
+}
+
+.nav-interview {
+    background: #ffc107;
+    color: #0c2624 !important;
+    border-radius: 7px;
+    padding: 8px 12px !important;
+    font-weight: 600;
+}
+
+.nav-admin {
+    background: #dc3545;
+    color: white !important;
+    border-radius: 7px;
+    padding: 8px 12px !important;
+    font-weight: 600;
+}
+
+/* Logout button */
+.logout-btn {
+    background: transparent;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Login link */
+.login-link {
+    color: #e4ded6 !important;
+    font-weight: 500;
+}
+
+/* Mobile menu adjustments */
+@media (max-width: 768px) {
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .nav-right a,
+    .nav-right button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .user-greeting,
+    .role-badge {
+        text-align: center;
+        margin: 5px 0;
+    }
+}

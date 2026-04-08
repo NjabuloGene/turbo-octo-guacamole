@@ -38,5 +38,5 @@ app.post("/login", (req, res) =>{
 });
 
 app.listen(300, () => {
-    console.log("Server running on htps://localhost:3000")
+    console.log("Server running on htps://localhost:8000")
 })

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard · helper.request</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="cleanersSection.html">Cleaners</a></li>
+                <li><a href="nanniesPage.html">Nannies</a></li>
+                <li><a href="elderlyCare.html">Elderly Care</a></li>
+                <li><a href="otherServices.html">More Services</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-ghost">Login</a>
+                <a href="account.html" class="btn-outline">Sign Up</a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage users, view interviews, and monitor platform activity</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <span class="stat-label">Total Users</span>
+                    <span class="stat-value" id="totalUsers">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🧑‍🔧</div>
+                <div class="stat-content">
+                    <span class="stat-label">Helpers</span>
+                    <span class="stat-value" id="totalHelpers">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👔</div>
+                <div class="stat-content">
+                    <span class="stat-label">Hirers</span>
+                    <span class="stat-value" id="totalHirers">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <span class="stat-label">Interviews</span>
+                    <span class="stat-value" id="totalInterviews">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-content">
+                    <span class="stat-label">Avg Score</span>
+                    <span class="stat-value" id="avgScore">-</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-content">
+                    <span class="stat-label">New Users (7d)</span>
+                    <span class="stat-value" id="newUsers">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="users">Users</button>
+            <button class="admin-tab" data-tab="interviews">Interviews</button>
+            <button class="admin-tab" data-tab="profiles">Profiles</button>
+            <button class="admin-tab" data-tab="reports">Reports</button>
+        </div>
+
+        <!-- Users Tab -->
+        <div id="users-tab" class="tab-pane active">
+            <div class="tab-header">
+                <h2>User Management</h2>
+                <div class="search-box">
+                    <input type="text" id="userSearch" placeholder="Search by name or email...">
+                    <button id="searchUsersBtn">🔍 Search</button>
+                </div>
+            </div>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Type</th>
+                            <th>Profiles</th>
+                            <th>Interviews</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr><td colspan="9" class="admin-loading">Loading users...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Interviews Tab -->
+        <div id="interviews-tab" class="tab-pane">
+            <div class="tab-header">
+                <h2>Interview Results</h2>
+            </div>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="interviewsTableBody">
+                        <tr><td colspan="7" class="admin-loading">Loading interviews...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Profiles Tab -->
+        <div id="profiles-tab" class="tab-pane">
+            <div class="tab-header">
+                <h2>Professional Profiles</h2>
+            </div>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Service</th>
+                            <th>Rating</th>
+                            <th>Location</th>
+                            <th>Verified</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="profilesTableBody">
+                        <tr><td colspan="8" class="admin-loading">Loading profiles...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports-tab" class="tab-pane">
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>User Growth</h3>
+                    <canvas id="userGrowthChart"></canvas>
+                </div>
+                <div class="report-card">
+                    <h3>Interview Scores Distribution</h3>
+                    <canvas id="scoreDistributionChart"></canvas>
+                </div>
+                <div class="report-card full-width">
+                    <h3>Service Type Popularity</h3>
+                    <canvas id="serviceTypeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="interviewModal" class="svc-overlay" style="display: none;"></div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const darkToggle = document.getElementById('darkToggle');
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.body.classList.add('dark'); 
+            if (darkToggle) darkToggle.textContent = '☀️'; 
+        }
+        if (darkToggle) {
+            darkToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                const isDark = document.body.classList.contains('dark');
+                darkToggle.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        }
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+            navLinks.querySelectorAll('a').forEach(a => 
+                a.addEventListener('click', () => navLinks.classList.remove('open'))
+            );
+        }
+    </script>
+    <script src="navbar.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

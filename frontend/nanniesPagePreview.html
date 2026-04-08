@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helper.request · Nannies & more</title>
+    <!-- Google Font + BBH Bartle (keeping your style) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #faf9f6;
+            color: #1e1e2a;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        /* dark mode class (toggle later) */
+        body.dark {
+            background: #18181b;
+            color: #ededee;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffffcc;
+            backdrop-filter: blur(8px);
+            padding: 1rem 2.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .dark .navbar {
+            background: #2a2a2ee0;
+            border-bottom: 1px solid #3a3a44;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(145deg, #284b63, #3b6d8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navContent {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .navContent a {
+            text-decoration: none;
+            color: #1e1e2a;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .dark .navContent a {
+            color: #e5e5e9;
+        }
+
+        .darkMode {
+            background: #1e1e2a;
+            color: white;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dark .darkMode {
+            background: #efefef;
+            color: #1a1a24;
+        }
+
+        .bodyText {
+            padding: 2rem 2.5rem 1rem;
+        }
+
+        .bodyText h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            letter-spacing: -1px;
+        }
+
+        .searchArea {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            background: white;
+            padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+            border-radius: 80px;
+            box-shadow: 0 8px 18px -8px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 1.8rem 0 2rem;
+        }
+
+        .dark .searchArea {
+            background: #2c2c34;
+            box-shadow: 0 8px 16px -4px #0b0b10;
+        }
+
+        .srchInput {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            padding: 0.8rem 0;
+            color: inherit;
+        }
+
+        #searchBtn, #locationBtn {
+            background: #284b63;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        #locationBtn {
+            background: #3d5a73;
+        }
+
+        /* profile edit section — new interactive block */
+        .profile-editor-section {
+            background: white;
+            border-radius: 2rem;
+            padding: 1.8rem 2.2rem;
+            margin: 1rem 2.5rem 2.5rem;
+            box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2);
+            border: 1px solid #e2e2ea;
+        }
+
+        .dark .profile-editor-section {
+            background: #2b2b33;
+            border-color: #41414b;
+        }
+
+        .profile-editor-section h2 {
+            font-size: 1.9rem;
+            font-weight: 550;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-editor-section h2 span {
+            background: #d0e2f0;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #1f415c;
+        }
+
+        .dark .profile-editor-section h2 span {
+            background: #3f5568;
+            color: #f0f3f8;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            min-width: 170px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #4b4b5a;
+            margin-bottom: 0.3rem;
+        }
+
+        .dark .form-group label {
+            color: #b0b0c0;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #f4f6fa;
+            border: 1px solid #ceceda;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            color: #1a1a26;
+        }
+
+        .dark .form-group input, .dark .form-group textarea, .dark .form-group select {
+            background: #3a3a45;
+            border-color: #56566b;
+            color: #f0f0f5;
+        }
+
+        .form-group textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #284b63;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary:hover {
+            background: #1e3d52;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid #284b63;
+            color: #284b63;
+            font-weight: 600;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        .dark .btn-secondary {
+            border-color: #99bede;
+            color: #d7e6f5;
+        }
+
+        /* active profile preview (what others see) */
+        .live-profile-preview {
+            margin: 2.5rem;
+            padding: 1.2rem 2rem;
+            background: #e7eef5;
+            border-radius: 2rem;
+            border-left: 8px solid #284b63;
+        }
+
+        .dark .live-profile-preview {
+            background: #25252e;
+            border-left-color: #759bbd;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .preview-avatar {
+            width: 70px;
+            height: 70px;
+            background: #b7cfdf;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1f3b4a;
+        }
+
+        .preview-details p {
+            margin: 0.2rem 0;
+            font-size: 1.1rem;
+        }
+
+        .preview-details .name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .badge {
+            background: #284b63;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* main cards — keep original look */
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            padding: 2rem 2.5rem;
+            justify-content: flex-start;
+        }
+
+        .container {
+            background: white;
+            border-radius: 1.8rem;
+            width: 260px;
+            padding: 1.2rem 1rem 1.5rem;
+            box-shadow: 0 10px 18px -10px rgba(0,0,0,0.08);
+            transition: 0.2s;
+            border: 1px solid #eaeef2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .dark .container {
+            background: #2a2a34;
+            border-color: #40404d;
+        }
+
+        .container img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #cdddee;
+            margin-bottom: 0.8rem;
+        }
+
+        .container h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .container p {
+            margin: 0.2rem 0;
+            font-size: 0.9rem;
+        }
+
+        .container button {
+            background: #f0f4fa;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            margin: 0.2rem 0.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .container button:hover {
+            background: #dae5f2;
+        }
+
+        footer {
+            background: #1e2b36;
+            color: white;
+            padding: 2.5rem 2.5rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #b6c8d6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <a class="logo">HELPER.request</a>
+        </div>
+        <div class="navContent">
+            <a href="index.html">Home</a>
+            <a>Help</a>
+            <a onclick="reveal()">More</a>
+            <a>Set Location</a>
+            <a>Freelance</a>
+            <button class="darkMode" id="darkModeToggle">Dark Mode</button>
+            <a href="account.html">create account</a>
+        </div>
+    </nav>
+
+    <!-- PROFILE CREATION / EDITOR — fully interactive, shows preview below -->
+    <div class="profile-editor-section" id="profileEditor">
+        <h2>✎ public profile <span>others see this</span></h2>
+        <div class="profile-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" id="profileName" placeholder="e.g. Thabo Mbeki" value="Alex Rivera">
+                </div>
+                <div class="form-group">
+                    <label>Role / title</label>
+                    <input type="text" id="profileRole" placeholder="Nanny, caregiver..." value="Special needs nanny">
+                </div>
+                <div class="form-group">
+                    <label>Hourly rate (ZAR)</label>
+                    <input type="text" id="profileRate" placeholder="R250/h" value="R280 / h">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Experience</label>
+                    <input type="text" id="profileExp" placeholder="e.g. 24 months" value="28 months">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="profileLoc" placeholder="City, area" value="Centurion, Pretoria">
+                </div>
+                <div class="form-group">
+                    <label>Rating (0–5)</label>
+                    <select id="profileRating">
+                        <option value="★★★★★" selected>★★★★★ (5.0)</option>
+                        <option value="★★★★☆">★★★★☆ (4.5)</option>
+                        <option value="★★★★☆">★★★★☆ (4.0)</option>
+                        <option value="★★★☆☆">★★★☆☆ (3.5)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Short bio / tagline</label>
+                    <textarea id="profileBio" placeholder="Brief description ...">First aid certified • infant sleep trainer • 5 years volunteer</textarea>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" id="saveProfileBtn">✔ save & update profile</button>
+                <button class="btn-secondary" id="resetProfileBtn">↺ reset to default</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- live preview of profile (exactly what others see) -->
+    <div class="live-profile-preview" id="livePreview">
+        <h3 style="margin-bottom: 0.5rem; font-weight: 400;">👁️ live preview (as others see you)</h3>
+        <div class="preview-header">
+            <div class="preview-avatar" id="previewAvatar">AR</div>
+            <div class="preview-details">
+                <p class="name" id="previewFullName">Alex Rivera</p>
+                <p><span id="previewRole">Special needs nanny</span>  •  <span id="previewRate">R280 / h</span></p>
+                <p>⭐ <span id="previewRating">★★★★★</span>  •  <span id="previewExp">28 months</span> experience</p>
+                <p>📍 <span id="previewLoc">Centurion, Pretoria</span></p>
+                <div class="badge" id="previewBadge">available now</div>
+                <p style="margin-top: 6px; max-width: 450px;" id="previewBio">First aid certified • infant sleep trainer • 5 years volunteer</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- existing nanny cards (the originals) -->
+    <div class="bodyText">
+        <h1>Nannies near you</h1>
+        <div class="searchArea">
+            <input class="srchInput" type="text" placeholder="What are you looking for?">
+            <button id="searchBtn">Search</button>
+            <button id="locationBtn" onclick="myFunction()">Set Location</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- cards (exactly as given, but with more consistent images) -->
+        <div class="container">
+            <img class="hero1" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b6d8f'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23f5e6d3'/%3E%3Cpath d='M30 65 Q50 80 70 65' stroke='%23f5e6d3' stroke-width='8' fill='none' stroke-linecap='round' /%3E%3C/svg%3E" alt="male helper">
+            <div>
+                <h4>John Doe</h4>
+                <p>★★★★☆</p>
+                <p>Nanny</p>
+                <p>12 Months experience</p>
+                <p>R200/h</p>
+                <p>Centurion,Pretoria</p>
+                <button>Enquire</button>
+                <button>Hire</button>
+                <button>View Profile</button>
+            </div>
+        </div>
+        <div class="container">
+            <img class="hero2" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23955e7b'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23fbebd2'/%3E%3Cpath d='M30 65 Q50 78 70 65' stroke='%23fbebd2' stroke-width='8' fill='none' stroke-linecap='round' /%3E%3C/svg%3E" alt="female helper">
+            <div>
+                <h4>Jane Doe</h4>
+                <p>★★★★★</p>
+                <p>Nanny</p>
+                <p>36 Months experience</p>
+                <p>R200/h</p>
+                <p>Centurion,Pretoria</p>
+                <button>Enquire</button>
+                <button>Hire</button>
+                <button>View Profile</button>
+            </div>
+        </div>
+        <!-- more cards (shorter version) -->
+        <div class="container">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b6d8f'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23f5e6d3'/%3E%3C/svg%3E">
+            <div><h4>John Doe</h4><p>12 Months exp</p><button>Enquire</button></div>
+        </div>
+        <div class="container">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23955e7b'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23fbebd2'/%3E%3C/svg%3E">
+            <div><h4>Jane Doe</h4><p>3 Years exp</p><button>Enquire</button></div>
+        </div>
+        <!-- repeat some to match original volume -->
+        <div class="container"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b6d8f'/%3E%3C/svg%3E"><div><h4>Mike</h4><p>20 Months exp</p><button>Enquire</button></div></div>
+        <div class="container"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23955e7b'/%3E%3C/svg%3E"><div><h4>Zinhle</h4><p>18 Months exp</p><button>Enquire</button></div></div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER.request</div>
+        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
+        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+    </footer>
+
+    <script>
+        // --- DARK MODE (simple) ---
+        const toggle = document.getElementById('darkModeToggle');
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+
+        // --- Profile editor logic (create/edit your public profile) ---
+        // get all preview + input fields
+        const nameInp = document.getElementById('profileName');
+        const roleInp = document.getElementById('profileRole');
+        const rateInp = document.getElementById('profileRate');
+        const expInp = document.getElementById('profileExp');
+        const locInp = document.getElementById('profileLoc');
+        const ratingSelect = document.getElementById('profileRating');
+        const bioInp = document.getElementById('profileBio');
+
+        // preview spans
+        const previewName = document.getElementById('previewFullName');
+        const previewRole = document.getElementById('previewRole');
+        const previewRate = document.getElementById('previewRate');
+        const previewExp = document.getElementById('previewExp');
+        const previewLoc = document.getElementById('previewLoc');
+        const previewRating = document.getElementById('previewRating');
+        const previewBio = document.getElementById('previewBio');
+        const previewAvatar = document.getElementById('previewAvatar');
+
+        // function to update preview from input fields
+        function updatePreview() {
+            let fullName = nameInp.value.trim();
+            if (fullName === '') fullName = 'Alex Rivera';
+            previewName.innerText = fullName;
+
+            // set avatar initials
+            const nameParts = fullName.split(' ');
+            let initials = '';
+            if (nameParts.length >= 2) {
+                initials = nameParts[0].charAt(0) + nameParts[1].charAt(0);
+            } else if (nameParts.length === 1) {
+                initials = nameParts[0].substring(0, 2).toUpperCase();
+            } else initials = 'AR';
+            previewAvatar.innerText = initials.toUpperCase();
+
+            previewRole.innerText = roleInp.value || 'Nanny';
+            previewRate.innerText = rateInp.value || 'R250/h';
+            previewExp.innerText = expInp.value || '12 months';
+            previewLoc.innerText = locInp.value || 'Centurion';
+            previewRating.innerText = ratingSelect.value || '★★★★★';
+            previewBio.innerText = bioInp.value || 'Experienced caregiver';
+        }
+
+        // save button
+        document.getElementById('saveProfileBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            updatePreview();
+            // Optional tiny feedback
+            alert('✅ Your public profile has been updated!');
+        });
+
+        // reset to a default profile (similar to initial)
+        document.getElementById('resetProfileBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            nameInp.value = 'Alex Rivera';
+            roleInp.value = 'Special needs nanny';
+            rateInp.value = 'R280 / h';
+            expInp.value = '28 months';
+            locInp.value = 'Centurion, Pretoria';
+            ratingSelect.value = '★★★★★';
+            bioInp.value = 'First aid certified • infant sleep trainer • 5 years volunteer';
+            updatePreview();
+        });
+
+        // also live update while typing (optional - good ux)
+        const allInputs = [nameInp, roleInp, rateInp, expInp, locInp, ratingSelect, bioInp];
+        allInputs.forEach(inp => inp.addEventListener('input', updatePreview));
+        // initial update on page load
+        updatePreview();
+
+        // --- original myFunction for location prompt ---
+        window.myFunction = function() {
+            let person = prompt("Please enter your location for better results:", "Mbombela");
+            if (person !== null && person !== "") {
+                alert("Hello " + person + "! We'll show results near you.");
+                // (optional you could update something)
+            }
+        }
+
+        // dummy reveal (since oncklick was in old html)
+        window.reveal = function() {
+            alert('More options coming soon.');
+        }
+
+        // Also handle location button via onclick in addition to the function binding
+        document.getElementById('locationBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            myFunction();
+        });
+
+        // search button just for demonstration
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            alert('Search functionality — find nannies near you (demo)');
+        });
+
+        // small extra: show that view profile could link
+        document.querySelectorAll('.container button').forEach(btn => {
+            if (btn.innerText.includes('View Profile')) {
+                btn.addEventListener('click', () => alert('Profile viewer (preview mode)'));
+            } else if (btn.innerText.includes('Enquire')) {
+                btn.addEventListener('click', () => alert('Enquiry sent (demo)'));
+            } else if (btn.innerText.includes('Hire')) {
+                btn.addEventListener('click', () => alert('Hire request (demo)'));
+            }
+        });
+    </script>
+    <!-- original script placeholder (kept) -->
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,134 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="indexStyle.css">
-    <link rel="stylesheet" href="profileStyle.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helper.Request · Create Your Professional Profile</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
-    <title>helper.Request</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
 </head>
 <body>
-    
 
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <div>
-            <a class="logo">HELPER.request</a>
-        </div>
-        <div class="navContent">
-            <a href="index.html" style=" color: inherit;">Home</a>
-            <a>Help</a>
-            <a oncklick="reveal()">More</a>
-            <a>Set Location</a>
-            <a>Freelance</a>
-            <button class="darkMode">Dark Mode</button>
-
-            <button id="but">AI interview</button>
-            <a href="account.html">Create account</a>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks">
+                <!-- Dynamically populated by navbar.js -->
+            </ul>
+            <div class="nav-actions">
+                <!-- Dynamically populated by navbar.js -->
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <div class="bodyText">
-       
-        <div class="introText" style="display: none;">
-            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
-            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-eyebrow">Professional Profiles</div>
+            <h1>Create Your<br><em>Professional Profile</em></h1>
+            <p>Fill out your details to appear in the right service listing — clients can find and contact you directly.</p>
         </div>
+    </div>
 
-        <h1>Setup and Verify your Profile</h1>
-
-         <div class="searchArea">
-            <button id="searchBtn">Search</button>
-           <input class="srchInput" type="text" placeholder="What are you looking for?">
-            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
+    <!-- SERVICE SELECTOR -->
+    <div class="service-banner">
+        <div class="service-selector">
+            <span class="selector-label">Browse category:</span>
+            <div class="selector-buttons">
+                <button class="service-btn active" onclick="switchService('nannies')">👶 Nannies</button>
+                <button class="service-btn" onclick="switchService('cleaners')">🧹 Cleaners</button>
+                <button class="service-btn" onclick="switchService('nurses')">🏥 Nurses</button>
+            </div>
         </div>
-        <button oncklick="reveal()">Click</button>
+    </div>
 
+    <!-- TWO-COLUMN LAYOUT -->
+    <div class="profile-page-layout">
+
+        <!-- LEFT: CREATOR PANEL -->
+        <div class="creator-panel">
+            <div class="creator-panel-header">
+                <h2>Build Your Profile</h2>
+                <p class="creator-subtitle">Fill this out to appear in the <strong id="selectedServiceDisplay">Nannies</strong> section</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="profile-progress">
+                <div class="progress-steps">
+                    <div class="progress-step completed">✓</div>
+                    <div class="progress-step active">2</div>
+                    <div class="progress-step">3</div>
+                    <div class="progress-step">4</div>
+                </div>
+                <div class="progress-labels">
+                    <span>Basic Info</span>
+                    <span>Photos</span>
+                    <span>Documents</span>
+                    <span>Video</span>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="media-tabs">
+                <button class="tab-btn active" onclick="switchTab('basic')">📋 Basic Info</button>
+                <button class="tab-btn" onclick="switchTab('photos')">📸 Photos</button>
+                <button class="tab-btn" onclick="switchTab('documents')">📄 Documents</button>
+                <button class="tab-btn" onclick="switchTab('video')">🎥 Video</button>
+            </div>
+
+            <!-- Basic Info Tab -->
+            <div class="tab-content active" id="basic-tab">
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="profileName" placeholder="Enter your full name" value="Alex Rivera">
+                    </div>
+                    <div class="form-group">
+                        <label>Professional Title</label>
+                        <input type="text" id="profileRole" placeholder="e.g. Special Needs Nanny" value="Special Needs Nanny">
+                    </div>
+                    <div class="form-group">
+                        <label>Hourly Rate (ZAR)</label>
+                        <input type="text" id="profileRate" placeholder="e.g. R250/hour" value="R280/hour">
+                    </div>
+                    <div class="form-group">
+                        <label>Experience</label>
+                        <input type="text" id="profileExp" placeholder="e.g. 24 months" value="28 months">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="profileLoc" placeholder="City, Area" value="Centurion, Pretoria">
+                    </div>
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select id="profileService">
+                            <option value="nannies" selected>👶 Nanny</option>
+                            <option value="cleaners">🧹 Cleaner</option>
+                            <option value="nurses">🏥 Nurse</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Bio / About You</label>
+                        <textarea id="profileBio" placeholder="Tell people about yourself...">First aid certified • Infant sleep trainer • 5 years volunteer experience</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photos Tab -->
+            <div class="tab-content" id="photos-tab">
+
+                <!-- ========== FACIAL VERIFICATION SECTION ========== -->
+<div class="verification-section" style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
+    <h3 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem;">🔐 Identity Verification</h3>
+    <p class="section-hint">Verify your identity by taking a live photo and uploading your ID document.</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+        <!-- Camera Section -->
+        <div>
+            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Live Photo / Selfie</label>
+            <div class="video-container" style="background: var(--bg); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; border: 2px solid var(--border); position: relative;">
+                <video id="live-stream" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                <div id="cameraPlaceholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); color: var(--ink-muted);">
+                    <span style="font-size: 3rem;">📷</span>
+                </div>
+            </div>
+            <div id="cameraStatus" style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-muted);">Camera starting...</div>
+        </div>
+        
+        <!-- ID Upload Section -->
+        <div>
+            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">ID Document</label>
+            <div class="upload-area" id="idUploadArea" style="padding: 1rem; text-align: center; cursor: pointer;">
+                <label for="idBook" style="cursor: pointer; display: block;">
+                    <span class="upload-icon" style="font-size: 2rem;">🪪</span>
+                    <p><strong>Click to upload ID photo</strong></p>
+                    <small>Passport, Driver's License, or National ID</small>
+                    <small style="display: block; margin-top: 4px;">JPG, PNG, PDF (Max 10MB)</small>
+                </label>
+                <input type="file" id="idBook" accept="image/*,.pdf" style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
+            </div>
+            <div id="idStatus" class="status-badge pending" style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-muted);">No ID uploaded yet</div>
+        </div>
     </div>
     
-
-    <h1>Your Home, Handled.</h1>
-    <h2>Reclaim your time and peace of mind. We connect you with vetted professionals so you can focus on family.</h2>
+    <!-- Verification Button -->
+    <div style="margin-top: 1rem;">
+        <button id="btn-action" class="btn-primary" style="width: 100%;">Start Verification</button>
+    </div>
     
-   
-
-   
-    <a href="elderlyCare.html" style=" color: inherit;">
-        <div class="userProfile">
-
-             <div class=""questionaire>
-                    <p  id="rotator">Your questions will display here</p>
-                </div>
-            
-            <div class= ></div>
-
-            
-             <div id="video-container" class="videoContainer">
-
-    <video id="live-stream" autoplay muted playsinline ></video>
-    <br>
-    <!-- We use ID-based selection and NO inline 'onclick' to prevent scope issues -->
-    <button type="button" id="btn-action">Start Verification</button>
-    <p id="error-display" style="color: red;"></p>
+    <!-- Verification Result -->
+    <div id="verificationResult" style="margin-top: 1rem;"></div>
+    <div id="error-display" style="color: #e53e3e; font-size: 0.8rem; margin-top: 0.5rem;"></div>
 </div>
 
-            
-             <div>
-                 <p>ID NO</p>
-             <input id="idNumber" type="text" required>
+                <div class="profile-picture-section">
+                    <h3>Profile Picture <span class="required">*</span></h3>
+                    <p class="section-hint">A clear, professional photo helps you stand out to clients.</p>
+                    <div class="profile-picture-container">
+                        <div class="profile-picture-preview" id="profilePicPreview">
+                            <img id="profilePicPreviewImg" src="" alt="Profile preview" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:10px;">
+                            <div class="profile-picture-placeholder" id="profilePicPlaceholder">
+                                <span class="placeholder-icon">📸</span>
+                                <span class="placeholder-text">Preview</span>
+                            </div>
+                        </div>
+                        <div class="upload-area" id="profilePicUpload" style="position:relative;">
+                            <label for="profilePicInput" style="cursor:pointer;display:block;">
+                                <span class="upload-icon">📸</span>
+                                <p><strong>Upload profile picture</strong></p>
+                                <small>Square image, max 5MB · JPG or PNG</small>
+                            </label>
+                            <input type="file" id="profilePicInput" accept="image/*" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="experience-photos-section">
+                    <h3>Experience Photos</h3>
+                    <p class="section-hint">Showcase your work — up to 10 images.</p>
+                    <div class="photo-grid" id="photoGrid">
+                        <div class="upload-area small" style="position:relative;aspect-ratio:1;">
+                            <label for="photoInput" style="cursor:pointer;display:block;">
+                                <span class="upload-icon" style="font-size:1.4rem">+</span>
+                                <p style="font-size:0.78rem">Add Photos</p>
+                            </label>
+                            <input type="file" id="photoInput" accept="image/*" multiple style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- Documents Tab -->
+            <div class="tab-content" id="documents-tab">
+                <div class="documents-section">
+                    <h3>CV / Resume</h3>
+                    <p class="section-hint">Upload your CV to show your professional background.</p>
+                    <div class="upload-area" id="cvUpload" style="position:relative;margin-bottom:1.5rem;">
+                        <label for="cvInput" style="cursor:pointer;display:block;">
+                            <span class="upload-icon">📄</span>
+                            <p><strong>Upload your CV</strong></p>
+                            <small>PDF, DOC, DOCX · Max 10MB</small>
+                        </label>
+                        <input type="file" id="cvInput" accept=".pdf,.doc,.docx" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                    </div>
 
-
-            <div>
-                <p>ID card or book</p>
-            <input id="idBook" type="file">
+                    <h3>Certificates &amp; Qualifications</h3>
+                    <p class="section-hint">Add relevant certificates to boost your credibility.</p>
+                    <div class="documents-list" id="certificatesList">
+                        <div class="upload-area small" style="position:relative;">
+                            <label for="certInput" style="cursor:pointer;display:block;">
+                                <span class="upload-icon" style="font-size:1.4rem">+</span>
+                                <p style="font-size:0.78rem">Add Certificates</p>
+                                <small>Multiple files allowed</small>
+                            </label>
+                            <input type="file" id="certInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div>
-              <p>Qualifications</p>
-            <input id="qualifications" type="file">  
+
+            <!-- Video Tab -->
+            <div class="tab-content" id="video-tab">
+                <div class="video-section">
+                    <h3>Introduction Video</h3>
+                    <p class="section-hint">A short video helps clients connect with you personally — keep it under 2 minutes.</p>
+                    <div class="upload-area video-upload" id="videoUpload" style="position:relative;">
+                        <label for="videoInput" style="cursor:pointer;display:block;">
+                            <span class="upload-icon">🎥</span>
+                            <p><strong>Upload introduction video</strong></p>
+                            <small>MP4, WebM · Max 50MB</small>
+                        </label>
+                        <input type="file" id="videoInput" accept="video/mp4,video/webm,video/ogg" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                    </div>
+                    <div class="video-preview" id="videoPreview" style="display:none;">
+                        <video controls width="100%" id="profileVideo">
+                            <source src="" id="videoSource" type="video/mp4">
+                        </video>
+                        <button class="remove-video-btn" onclick="removeVideo()">Remove Video</button>
+                    </div>
+                </div>
             </div>
 
-
-            <div>
-             <p>Gender</p>
-            <select >
-                <option>
-                    Male
-                </option>
-                <option>
-                    Female
-                </option>
-            </select>   
-
-            
-
+            <!-- Actions -->
+            <div class="form-actions">
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="createProfile()">
+                        <span class="btn-icon">✨</span> Create Profile &amp; Publish
+                    </button>
+                    <button class="btn-secondary" onclick="clearForm()">
+                        <span class="btn-icon">🗑️</span> Clear
+                    </button>
+                </div>
+                <p class="form-note">Your profile will be visible to clients immediately after creation.</p>
             </div>
-
-           
-
-        <input type="range">
         </div>
-    </a>
 
-   </div>
- 
+        <!-- RIGHT: LIVE PREVIEW -->
+        <div class="preview-panel">
+            <div class="preview-panel-label">
+                <span>👁️</span> Live Preview
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-header">
+                    <div class="preview-avatar" id="previewAvatar">
+                        <img id="previewProfilePic" src="" alt="Profile" style="display:none;">
+                        <span id="avatarInitials">AR</span>
+                    </div>
+                    <div class="preview-details">
+                        <div class="name" id="previewFullName">Alex Rivera</div>
+                        <p><strong id="previewRole">Special Needs Nanny</strong> · <span id="previewRate">R280/hour</span></p>
+                        <p>⭐ ★★★★☆ · <span id="previewExp">28 months</span> exp.</p>
+                        <p>📍 <span id="previewLoc">Centurion, Pretoria</span></p>
+                        <span class="badge">Available Now</span>
+                    </div>
+                </div>
+                <div class="preview-bio">
+                    <p id="previewBio">First aid certified • Infant sleep trainer • 5 years volunteer experience</p>
+                </div>
+                <div class="profile-media-preview">
+                    <div>
+                        <span class="preview-section-title">Photos</span>
+                        <div class="experience-photos" id="previewPhotos"></div>
+                    </div>
+                    <div>
+                        <span class="preview-section-title">Documents</span>
+                        <div id="previewDocs" style="font-size:0.78rem;color:var(--ink-muted);font-weight:300;">No documents uploaded yet.</div>
+                    </div>
+                    <div class="video-indicator" id="previewVideoIndicator" style="display:none;">🎥 Has introduction video</div>
+                </div>
+            </div>
+
+            <!-- Quick tip -->
+            <div style="background:var(--teal-light);border:1px solid rgba(0,147,138,0.2);border-radius:var(--radius);padding:1rem 1.25rem;">
+                <p style="font-size:0.78rem;color:var(--teal);font-weight:600;margin-bottom:0.35rem;">💡 Profile Tips</p>
+                <p style="font-size:0.78rem;color:var(--ink-muted);font-weight:300;line-height:1.6;">Profiles with a photo get <strong style="color:var(--ink)">3× more</strong> views. Add a short video introduction to stand out even further.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== AI INTERVIEW SECTION ========== -->
+    <div class="interview-section" style="max-width: 1340px; margin: 0 auto; padding: 0 2rem 2rem;">
+        <div style="background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden;">
+            <div style="padding: 1.5rem; background: linear-gradient(135deg, var(--teal-light), transparent);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.25rem;">🤖 AI Interview Assessment</h3>
+                        <p style="color: var(--ink-muted); font-size: 0.85rem;">Answer questions about your skills and experience</p>
+                    </div>
+                    <button id="startInterviewBtn" class="btn-teal" style="padding: 0.75rem 1.5rem;">Start Interview</button>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="rotator-interview" class="question-card" style="margin: 1.5rem; padding: 1.5rem; background: var(--teal-light); border-radius: var(--radius); border-left: 4px solid var(--teal);">
+                <div id="questionNumber" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 0.5rem;">Question 1 of 5</div>
+                <div id="questionText" style="font-size: 1.1rem; font-weight: 500; line-height: 1.5;">Click "Start Interview" to begin the AI assessment</div>
+            </div>
+
+            <!-- Answer Area -->
+            <div style="margin: 0 1.5rem 1.5rem 1.5rem;">
+                <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="answerInput" placeholder="Type your answer here..." style="flex: 1; padding: 0.8rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); font-family: var(--font-body);" disabled>
+                    <button id="sendAnswerBtn" class="btn-primary" style="padding: 0.8rem 1.5rem;" disabled>Send Answer</button>
+                    <button id="voiceRecordBtn" class="btn-secondary" style="padding: 0.8rem 1.5rem; display: flex; align-items: center; gap: 0.5rem;" disabled>🎤 Record Voice</button>
+                </div>
+                
+                <!-- Progress Indicators -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.5rem; border-top: 1px solid var(--border);">
+                    <div id="questionProgress" style="color: var(--ink-muted); font-size: 0.85rem;">0/5 answered</div>
+                    <div id="scoreDisplay" style="color: var(--teal); font-size: 0.85rem; font-weight: 500;">⚡ Ready to start</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recording Status (hidden by default) -->
+    <div id="recordingStatus" style="display: none; position: fixed; bottom: 20px; right: 20px; background: var(--teal); color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; z-index: 1000;"></div>
+
+    <!-- BROWSE SECTION -->
+    <div class="browse-section">
+        <h2>Find a <span id="currentServiceTitle">Nanny</span></h2>
+        <div class="browse-search">
+            <input type="text" id="searchInput" placeholder="Search by name, location or speciality...">
+            <button onclick="doSearch()">🔍 Search</button>
+            <button class="btn-ghost" style="border-color:var(--border);color:var(--ink-muted);" onclick="setLocation()">📍 Location</button>
+        </div>
+    </div>
+
+    <!-- HELPER CARDS -->
+    <div class="cards-grid" id="serviceCards"></div>
+
+    <!-- OTHER SERVICES -->
+    <div class="service-nav-section">
+        <h3>Browse Other Services</h3>
+        <div class="service-nav-grid">
+            <div class="service-nav-card" onclick="switchService('nannies')">
+                <span class="svc-icon">👶</span>
+                <h4>Nannies</h4>
+                <p>Professional child care</p>
+                <button>Browse Nannies</button>
+            </div>
+            <div class="service-nav-card" onclick="switchService('cleaners')">
+                <span class="svc-icon">🧹</span>
+                <h4>Cleaners</h4>
+                <p>Professional home cleaning</p>
+                <button>Browse Cleaners</button>
+            </div>
+            <div class="service-nav-card" onclick="switchService('nurses')">
+                <span class="svc-icon">🏥</span>
+                <h4>Nurses</h4>
+                <p>Qualified medical care</p>
+                <button>Browse Nurses</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
-        <div class="footer-logo">HELPER.reques</div>
-        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
-        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
     </footer>
 
- 
-         </script>
-
-          <script src="register.js"></script>
-        <script src="mainAccess.js"></script>
-        <script src="profile.js"></script>
+    <script src="navbar.js"></script>
+    <script src="profileControl.js"></script>
 </body>
 </html>

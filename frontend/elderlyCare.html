@@ -1,217 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="indexStyle.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elderly Care · helper.request</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap" rel="stylesheet">
-    <title>helper.Request Elderly care</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
 </head>
-<body>
-    
 
+<!-- data-service tells unifiedServices.js which profiles to fetch -->
+<body data-service="nurses">
+
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <div>
-            <a class="logo">HELPER.request</a>
-        </div>
-        <div class="navContent">
-            <a href="index.html">Home</a>
-            <a>Help</a>
-            <a oncklick="reveal()">More</a>
-            <a>Set Location</a>
-            <a>Freelance</a>
-            <button class="darkMode">Dark Mode</button>
-
-            <a href="account.html">crewate account</a>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="cleanersSection.html">Cleaners</a></li>
+                <li><a href="nanniesPage.html">Nannies</a></li>
+                <li><a href="elderlyCare.html" class="active">Elderly Care</a></li>
+                <li><a href="otherServices.html">More Services</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-ghost">Login</a>
+                <a href="account.html" class="btn-outline">Sign Up</a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <div class="bodyText">
-       
-        <div class="introText" style="display: none;">
-            <h2>Peace of mind?, veted?, relliable?, flexible?</h2>
-            <h2>We deal in all of that! you can trust us to help you find the right person fo you. fast, relliablly and at the comfort of your home!</h2>
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-eyebrow">Compassionate Care</div>
+            <h1>Elderly Care<br><em>Professionals You Can Trust</em></h1>
+            <p>Qualified, vetted caregivers ready to support your loved ones with dignity and compassion.</p>
         </div>
-
-        <h1>Elderly Care</h1>
-
-         <div class="searchArea">
-            <button id="searchBtn">Search</button>
-           <input class="srchInput" type="text" placeholder="What are you looking for?">
-            <button id="locationBtn" onclick="myFunction()"> Set Location</button>
-        </div>
-        <button oncklick="reveal()">Click</button>
-
     </div>
 
-
-   </div>
-
-    <div class="main">
-        <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <h4>rating:</h4>
-                <p>Nanny</p>
-                <p>12 Months experience</p>
-                <p>R200/h</p>
-                <p>Centurion,Pretoria</p>
-                <button >Enquire</button>
-                <button>Hire</button>
-                <button>View Profile</button>
-                
-            </div>
+    <!-- SEARCH & FILTERS -->
+    <div class="filters-section">
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input"
+                   placeholder="Search by name, specialty, or location…">
+            <button id="searchBtn" class="search-btn">🔍 Search</button>
         </div>
 
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <h4>rating:</h4>
-                <p>Nanny</p>
-                <p>36 Months experience</p>
-                <p>R200/h</p>
-                <p>Centurion,Pretoria</p>
-                <button >Enquire</button>
-                <button>Hire</button>
-                <button>View Profile</button>
-                
-                
-            </div>
-        </div>
-        
-
-         <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <p>12 Months experience</p>
-                <button >Enquire</button>
-                </a>
-            </div>
+        <div class="filter-row">
+            <button class="filter-chip active" data-filter="all">All Caregivers</button>
+            <button class="filter-chip" data-filter="top-rated">⭐ Top Rated</button>
+            <button class="filter-chip" data-filter="verified">✓ Verified</button>
+            <button class="filter-chip" data-filter="video">🎥 Has Video</button>
         </div>
 
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <p>3 Years experience</p>
-                <button>Enquire</button>
+        <div class="active-filters" id="activeFilters"></div>
+    </div>
+
+    <!-- RESULTS HEADER -->
+    <div class="results-header">
+        <span id="resultsCount" class="results-count">Loading professionals…</span>
+        <button id="clearFilters" class="clear-filters" style="display:none;">Clear all filters</button>
+    </div>
+
+    <!-- PROFILES GRID — populated by unifiedServices.js -->
+    <div id="profilesGrid"></div>
+
+    <!-- OTHER SERVICES -->
+    <div class="service-nav-section">
+        <h3>Other Services You Might Need</h3>
+        <div class="service-nav-grid">
+            <div class="service-nav-card" onclick="location.href='cleanersSection.html'">
+                <span class="svc-icon">🧹</span>
+                <h4>Cleaners</h4>
+                <p>Professional home cleaning</p>
+                <button>Browse Cleaners</button>
+            </div>
+            <div class="service-nav-card" onclick="location.href='nanniesPage.html'">
+                <span class="svc-icon">👶</span>
+                <h4>Nannies</h4>
+                <p>Professional child care</p>
+                <button>Browse Nannies</button>
+            </div>
+            <div class="service-nav-card" onclick="location.href='otherServices.html'">
+                <span class="svc-icon">🔧</span>
+                <h4>More Services</h4>
+                <p>Meal prep, plumbers, electricians</p>
+                <button>Explore All</button>
             </div>
         </div>
-
-        
-<br>
-         <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <p>12 Months experience</p>
-                <button >Enquire</button>
-                </a>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <p>3 Years experience</p>
-                <button>Enquire</button>
-            </div>
-        </div>
-        
-         <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <p>12 Months experience</p>
-                <button >Enquire</button>
-                </a>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <p>3 Years experience</p>
-                <button>Enquire</button>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <p>12 Months experience</p>
-                <button >Enquire</button>
-                </a>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <p>3 Years experience</p>
-                <button>Enquire</button>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero1" src="male helper.png">
-            <div>
-                <h4>John Doe</h4>
-                <p>12 Months experience</p>
-                <button >Enquire</button>
-                </a>
-            </div>
-        </div>
-
-         <div class="container">
-            <img class="hero2" src="female helper.png">
-            <div>
-                <h4>Jane Doe</h4>
-                <p>3 Years experience</p>
-                <button>Enquire</button>
-            </div>
-
-            
-
-        </div>
-           
-
     </div>
 
     <footer>
-        <div class="footer-logo">HELPER.reques</div>
-        <p class="footer-text">Get whom you need, When you need them.<br>anywhere in south africa.</p>
-        <div class="copyright">&copy; 2025 HELPER.request All rights reserved.</div>
+        <div class="footer-logo">HELPER<span style="color:var(--teal-mid)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
     </footer>
 
     <script>
-        
-function myFunction() {
-  let text;
-  let person = prompt("Please enter your location for better results:", "Mbombela");
-  if (person == null || person == "") {
-    text = "User cancelled the prompt.";
-  } else {
-    text = "Hello " + person + "! How are you today?";
-  }
-  document.getElementById("demo").innerHTML = text;
-}
+        /* Dark mode */
+        const darkToggle = document.getElementById('darkToggle');
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            if (darkToggle) darkToggle.textContent = '☀️';
+        }
+        if (darkToggle) {
+            darkToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                const isDark = document.body.classList.contains('dark');
+                darkToggle.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        }
 
-
+        /* Mobile menu */
+        const hamburger = document.getElementById('hamburger');
+        const navLinks  = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+            navLinks.querySelectorAll('a').forEach(a =>
+                a.addEventListener('click', () => navLinks.classList.remove('open'))
+            );
+        }
     </script>
 
-    <script src="index.js"></script>
-    <script>
-        
-    </script>
+    <!-- unifiedServices.js handles all profile loading, filtering, modals & actions -->
+    <script src="unifiedServices.js"></script>
 </body>
 </html>

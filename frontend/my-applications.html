@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications · AgentHelper.Source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <style>
+        .applications-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .application-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .job-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+        }
+        .company-name {
+            color: var(--teal);
+            margin-top: 0.25rem;
+        }
+        .application-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-pending { background: #fef3c7; color: #b45309; }
+        .status-reviewed { background: #dbeafe; color: #1e40af; }
+        .status-shortlisted { background: #c8e6c9; color: #2e7d32; }
+        .status-rejected { background: #fee2e2; color: #b91c1c; }
+        .status-hired { background: #dcfce7; color: #15803d; }
+        .application-details {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="applications-container">
+        <h1 style="font-family: var(--font-display); margin-bottom: 0.5rem;">My Applications</h1>
+        <p style="color: var(--ink-muted); margin-bottom: 2rem;">Track your job applications</p>
+
+        <div id="applicationsList">
+            <div class="loading-state"><div class="loading-spinner"></div><p>Loading applications...</p></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="my-applications.js"></script>
+</body>
+</html>

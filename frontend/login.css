@@ -1,62 +1,433 @@
-body{
-    background-color: rgb(19, 35, 41);
+/* ============================================================
+   login.css — Styles for Login & Register pages
+   Keeping your original picture with increased green transparency
+   ============================================================ */
+
+/* ── PAGE-SPECIFIC BACKGROUND WITH YOUR IMAGE ── */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Your background image - exactly as before */
+.auth-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('pictures/cleaning.jpg') center/cover no-repeat fixed;
+    filter: brightness(0.7) contrast(1.1);
+    z-index: -2;
+}
+
+/* More transparent teal overlay - increased transparency */
+.auth-page::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(0,147,138,0.55) 0%,    /* More transparent (was 0.75) */
+        rgba(26,26,24,0.75) 100%);   /* Slightly more transparent (was 0.85) */
+    z-index: -1;
+}
+
+/* Dark mode adjustment - keeping same transparency level */
+body.dark .auth-page::before {
+    filter: brightness(0.5) contrast(1.2);
+}
+
+body.dark .auth-page::after {
+    background: linear-gradient(135deg, 
+        rgba(0,111,104,0.65) 0%,     /* More transparent (was 0.85) */
+        rgba(0,0,0,0.85) 100%);       /* More transparent (was 0.95) */
+}
+
+/* ── NAVBAR - COMPLETELY UNSTYLED (back to default) ── */
+/* No navbar styles - will use default from helper.css */
+
+/* ── AUTH CARD WITH GLASS EFFECT ── */
+.auth-page .auth-container {
+    max-width: 460px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.auth-page .auth-card {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 28px;
+    padding: 2.5rem 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.auth-page .auth-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 30px 60px -12px rgba(0,0,0,0.6);
+}
+
+/* Dark mode card */
+body.dark .auth-page .auth-card {
+    background: rgba(28,28,26,0.92);
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* ── AUTH HEADER ── */
+.auth-page .auth-header {
     text-align: center;
-    font-size: larger;
-    color: snow;
-    background-image: url(newFamilyBg.jpg);
+    margin-bottom: 2rem;
 }
 
-
-.navbar{
-    background-color: rgb(20, 107, 107);
-    height: 80px;
-    max-width: 100%;
-    margin-top: -10px;
+.auth-page .auth-header h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
-
-.main{
-    display: inline-block;
-    margin-top: 30vh;
-    margin-right: 30px;
+.auth-page .auth-header p {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
-.formArea{
-    display: inline-block;
+/* Dark mode header */
+body.dark .auth-page .auth-header h2 {
+    color: #f0ede6;
 }
 
-form{
-    background: rgba(255,255,255,0.3);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 10px;
+body.dark .auth-page .auth-header p {
+    color: #a09c94;
 }
 
-FORM:hover{
-    background-color: rgba(95, 18, 18, 0.3);
-    backdrop-filter: blur(10px);
+/* ── FORM STYLING ── */
+.auth-page .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
-body::after{
-    background-color: black;
-    opacity: 90%;
+.auth-page .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
-.paragraph{
-    margin-top: -10px;
+.auth-page .form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.auth-page .form-group .required {
+    color: var(--teal);
+}
+
+.auth-page .form-group input,
+.auth-page .form-group select {
+    background: rgba(255,255,255,0.9);
+    border: 1.5px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.auth-page .form-group input:focus,
+.auth-page .form-group select:focus {
+    border-color: var(--teal);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0,147,138,0.15);
+}
+
+.auth-page .form-group input::placeholder {
+    color: var(--ink-muted);
+    opacity: 0.5;
+}
+
+/* Dark mode inputs */
+body.dark .auth-page .form-group input,
+body.dark .auth-page .form-group select {
+    background: rgba(45,45,42,0.9);
+    border-color: rgba(255,255,255,0.1);
+    color: #f0ede6;
+}
+
+body.dark .auth-page .form-group input:focus,
+body.dark .auth-page .form-group select:focus {
+    background: #353532;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(0,147,138,0.25);
+}
+
+/* ── ROLE SELECT (for register page) ── */
+.auth-page .role-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    background-size: 1em;
+}
+
+/* ── ADMIN CODE FIELD (for register page) ── */
+.auth-page .admin-code-field {
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.auth-page .admin-code-field.visible {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auth-page .admin-code-field small {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── REMEMBER ME & FORGOT PASSWORD ── */
+.auth-page .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0 0.25rem;
+}
+
+.auth-page .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+}
+
+.auth-page .remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--teal);
+    cursor: pointer;
+}
+
+.auth-page .forgot-link {
+    color: var(--teal);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
     font-weight: 500;
 }
 
-input{
-    border-radius: 7px;
-    height: 25px;
-    border: none;
+.auth-page .forgot-link:hover {
+    color: var(--teal-dark);
+    text-decoration: underline;
 }
 
-button{
-    border-radius: 7px;
-    height: 25px;
+/* ── SUBMIT BUTTON ── */
+.auth-page .btn-primary {
+    background: var(--teal);
+    color: white;
     border: none;
-    margin-top: 7px;
+    padding: 1rem;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.75rem;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0,147,138,0.3);
+}
 
+.auth-page .btn-primary:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,147,138,0.4);
+}
+
+/* ── DIVIDER ── */
+.auth-page .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 1rem;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+}
+
+.auth-page .auth-divider::before,
+.auth-page .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+}
+
+body.dark .auth-page .auth-divider::before,
+body.dark .auth-page .auth-divider::after {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ── SOCIAL LOGIN BUTTONS ── */
+.auth-page .social-login {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.auth-page .social-btn {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 16px;
+    padding: 0.85rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-page .social-btn:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+}
+
+.auth-page .social-btn span {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Dark mode social buttons */
+body.dark .auth-page .social-btn {
+    background: rgba(40,40,38,0.4);
+    border-color: rgba(255,255,255,0.1);
+    color: #f0ede6;
+}
+
+body.dark .auth-page .social-btn:hover {
+    background: rgba(60,60,58,0.5);
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* ── AUTH FOOTER ── */
+.auth-page .auth-footer {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.auth-page .auth-footer p {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+}
+
+.auth-page .auth-footer a {
+    color: var(--teal);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.auth-page .auth-footer a:hover {
+    color: var(--teal-dark);
+    text-decoration: underline;
+}
+
+/* ── FOOTER - USING DEFAULT STYLES ── */
+/* No footer overrides - using default from helper.css */
+
+/* ── RESPONSIVE ADJUSTMENTS ── */
+@media (max-width: 768px) {
+    .auth-page .auth-container {
+        margin: 2rem auto;
+    }
+    
+    .auth-page .auth-card {
+        padding: 2rem 1.5rem;
+        border-radius: 24px;
+    }
+    
+    .auth-page .auth-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .auth-page .social-login {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .auth-page .remember-forgot {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-page .auth-card {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    .auth-page .auth-header h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-page .auth-card {
+    animation: fadeIn 0.6s ease-out;
 }

@@ -1,50 +1,482 @@
+/* ============================================================
+   auth.css — Special styles for Login & Register pages
+   Maintains design system consistency with elegant background
+   ============================================================ */
 
+/* ── PAGE-SPECIFIC BACKGROUND WITH OVERLAY ── */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-body{
-    background-color: rgb(19, 35, 41);
-    text-align: center;
-    font-size: larger;
+.auth-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('pictures/auth-bg.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.7);
+    z-index: -2;
+}
+
+.auth-page::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,147,138,0.85) 0%, rgba(26,26,24,0.95) 100%);
+    z-index: -1;
+}
+
+/* Dark mode adjustment */
+body.dark .auth-page::after {
+    background: linear-gradient(135deg, rgba(0,111,104,0.9) 0%, rgba(0,0,0,0.98) 100%);
+}
+
+/* ── NAVBAR OVERRIDES FOR AUTH PAGES ── */
+.auth-page .navbar {
+    background: transparent;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+}
+
+.auth-page .nav-links a {
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.auth-page .nav-links a:hover {
+    background: rgba(255,255,255,0.15);
     color: white;
-    background-image: url(newFamilyBg.jpg);
 }
 
-
-.form{
-    justify-self: center;
-     background-color:  rgba(255,255,255,0.3);
-    padding: 50px;
-    padding-top: 10px;
-    border-radius: 30px;
+.auth-page .btn-ghost {
+    border-color: rgba(255,255,255,0.3);
+    color: white;
 }
 
-input{
-    border-radius: 15px;
-    height: 40px;
+.auth-page .btn-ghost:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.auth-page .btn-teal {
+    background: white;
+    color: var(--teal);
+    font-weight: 600;
+}
+
+.auth-page .btn-teal:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+}
+
+.auth-page .dark-toggle {
+    border-color: rgba(255,255,255,0.3);
+    color: white;
+}
+
+/* ── AUTH CARD WITH GLASSMORPHISM EFFECT ── */
+.auth-page .auth-container {
+    max-width: 480px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.auth-page .auth-card {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.auth-page .auth-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Dark mode card */
+body.dark .auth-page .auth-card {
+    background: rgba(28,28,26,0.95);
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* ── AUTH HEADER ── */
+.auth-page .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-page .auth-header h2 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.auth-page .auth-header p {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* Dark mode header */
+body.dark .auth-page .auth-header h2 {
+    color: #f0ede6;
+}
+
+body.dark .auth-page .auth-header p {
+    color: #8a8780;
+}
+
+/* ── FORM STYLING ── */
+.auth-page .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.auth-page .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auth-page .form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.auth-page .form-group .required {
+    color: var(--teal);
+}
+
+.auth-page .form-group input,
+.auth-page .form-group select {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.auth-page .form-group input:focus,
+.auth-page .form-group select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(0,147,138,0.15);
+}
+
+.auth-page .form-group input::placeholder {
+    color: var(--ink-muted);
+    opacity: 0.5;
+}
+
+/* Dark mode inputs */
+body.dark .auth-page .form-group input,
+body.dark .auth-page .form-group select {
+    background: #2d2d2a;
+    border-color: #3d3d3a;
+    color: #f0ede6;
+}
+
+/* ── ROLE SELECT SPECIAL STYLING ── */
+.auth-page .role-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+/* ── ADMIN CODE FIELD ── */
+.auth-page .admin-code-field {
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.auth-page .admin-code-field.visible {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auth-page .admin-code-field small {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── SUBMIT BUTTON ── */
+.auth-page .btn-primary {
+    background: var(--teal);
+    color: white;
     border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+    width: 100%;
 }
 
-select{
-    height: 30px;
-    width: 170px;
-    border-radius: 15px;
+.auth-page .btn-primary:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px var(--teal);
 }
 
-.dateIn{
-    width: 170px;
+.auth-page .btn-primary:active {
+    transform: translateY(0);
 }
 
-.submitBtn{
-    border-radius: 15px;
-    height: 40px;
-    width: 70;
-    margin-top: 30px;
-    background-color: rgb(255, 255, 255);
-    
-    
-    
+/* ── DIVIDER ── */
+.auth-page .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
 }
 
-.adressIn{
-    height: 12 0px;
-    
+.auth-page .auth-divider::before,
+.auth-page .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
 }
+
+/* ── SOCIAL LOGIN BUTTONS ── */
+.auth-page .social-login {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.auth-page .social-btn {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 0.75rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.auth-page .social-btn:hover {
+    background: var(--teal-light);
+    border-color: var(--teal);
+    transform: translateY(-2px);
+}
+
+.auth-page .social-btn span {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Dark mode social buttons */
+body.dark .auth-page .social-btn {
+    color: #f0ede6;
+    border-color: #3d3d3a;
+}
+
+body.dark .auth-page .social-btn:hover {
+    background: rgba(0,147,138,0.2);
+    border-color: var(--teal);
+}
+
+/* ── AUTH FOOTER ── */
+.auth-page .auth-footer {
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.auth-page .auth-footer p {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+}
+
+.auth-page .auth-footer a {
+    color: var(--teal);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.auth-page .auth-footer a:hover {
+    color: var(--teal-dark);
+    text-decoration: underline;
+}
+
+/* ── FOOTER OVERRIDES ── */
+.auth-page footer {
+    background: transparent;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    margin-top: auto;
+}
+
+.auth-page footer p,
+.auth-page .footer-logo,
+.auth-page .copyright {
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ── RESPONSIVE ADJUSTMENTS ── */
+@media (max-width: 768px) {
+    .auth-page .auth-container {
+        margin: 2rem auto;
+    }
+    
+    .auth-page .auth-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .auth-page .auth-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .auth-page .social-login {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-page .auth-card {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Simple guaranteed gradient background */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a2e2c 0%, #1d4844 50%, #2a635c 100%);
+}
+
+/* Soft overlay for depth */
+.auth-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Dark mode adjustment */
+body.dark .auth-page {
+    background: linear-gradient(145deg, #05100f 0%, #0a1f1d 50%, #0f2e2b 100%);
+}
+
+/* ============================================================
+   auth.css — Special styles for Login & Register pages
+   ============================================================ */
+
+/* ── PAGE-SPECIFIC BACKGROUND WITH OVERLAY ── */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Gradient fallback (always shows) */
+.auth-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #0f2b29 0%, #1d4844 50%, #2a635c 100%);
+    z-index: -2;
+}
+
+/* Background image with teal overlay - CORRECTED PATH */
+.auth-page::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, rgba(0,147,138,0.85) 0%, rgba(26,26,24,0.95) 100%),
+        url('pictures/auth-bg.jpg'); /* Fixed path - relative to HTML file */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Alternative paths if the above doesn't work - try these */
+/* Option 1: If auth.css is in same folder as HTML */
+/* url('pictures/auth-bg.jpg') */
+
+/* Option 2: If you have a specific image name */
+/* url('pictures/cleaning.jpg') - uses one of your existing images */
+
+/* Dark mode adjustment */
+body.dark .auth-page::after {
+    background: 
+        linear-gradient(135deg, rgba(0,111,104,0.95) 0%, rgba(0,0,0,0.98) 100%),
+        url('pictures/auth-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* ── REST OF YOUR STYLES REMAIN THE SAME ── */
+/* ... (keep all your existing styles from previous version) ... */

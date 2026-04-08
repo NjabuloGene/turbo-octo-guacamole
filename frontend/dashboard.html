@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · helper.request</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <div class="user-card">
+                <div class="user-avatar" id="userAvatar"></div>
+                <div class="user-name" id="userName">Loading...</div>
+                <div class="user-role" id="userRole"></div>
+                <div class="user-status">Online</div>
+            </div>
+            <nav class="dashboard-nav">
+                <a href="#" class="dashboard-nav-item active" data-tab="overview">
+                    <span class="nav-icon">📊</span><span>Overview</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="profile">
+                    <span class="nav-icon">👤</span><span>My Profile</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="applications">
+                    <span class="nav-icon">📋</span><span>Applications</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="jobs">
+                    <span class="nav-icon">💼</span><span>My Jobs</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="earnings">
+                    <span class="nav-icon">💰</span><span>Earnings</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="calendar">
+                    <span class="nav-icon">📅</span><span>Calendar</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="settings">
+                    <span class="nav-icon">⚙️</span><span>Settings</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="dashboard-main">
+            <div id="overview-tab" class="dashboard-tab active">
+                <h2>Welcome Back!</h2>
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card"><div class="stat-icon">👁️</div><div class="stat-info"><div class="stat-value" id="profileViews">0</div><div class="stat-label">Profile Views</div></div></div>
+                    <div class="stat-card"><div class="stat-icon">💬</div><div class="stat-info"><div class="stat-value" id="messageCount">0</div><div class="stat-label">Messages</div></div></div>
+                    <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-info"><div class="stat-value" id="applicationCount">0</div><div class="stat-label">Applications</div></div></div>
+                    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-info"><div class="stat-value" id="earningsCount">R0</div><div class="stat-label">Earnings</div></div></div>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list"></div>
+                </div>
+            </div>
+
+            <div id="profile-tab" class="dashboard-tab">
+                <h2>My Profile</h2>
+                <div class="profile-edit-form">
+                    <div class="form-group"><label>Full Name</label><input type="text" id="editName" class="form-input"></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="editEmail" class="form-input" disabled></div>
+                    <div class="form-group"><label>Phone</label><input type="tel" id="editPhone" class="form-input"></div>
+                    <div class="form-group"><label>Location</label><input type="text" id="editLocation" class="form-input"></div>
+                    <div class="form-group"><label>Bio</label><textarea id="editBio" rows="4" class="form-input"></textarea></div>
+                    <button class="btn-primary" onclick="updateProfile()">Save Changes</button>
+                </div>
+            </div>
+
+            <div id="applications-tab" class="dashboard-tab">
+                <h2>My Applications</h2>
+                <div id="applicationsList" class="applications-list"></div>
+            </div>
+
+            <div id="jobs-tab" class="dashboard-tab">
+                <h2>My Jobs</h2>
+                <div id="jobsList" class="jobs-list"></div>
+            </div>
+
+            <div id="earnings-tab" class="dashboard-tab">
+                <h2>Earnings</h2>
+                <div class="earnings-summary" id="earningsSummary"></div>
+                <div id="earningsHistory"></div>
+            </div>
+
+            <div id="calendar-tab" class="dashboard-tab">
+                <h2>Calendar</h2>
+                <div id="calendarView"></div>
+            </div>
+
+            <div id="settings-tab" class="dashboard-tab">
+                <h2>Settings</h2>
+                <div class="settings-form">
+                    <div class="form-group"><label>Email Notifications</label><label class="toggle-switch"><input type="checkbox" id="emailNotifications"><span class="toggle-slider"></span></label></div>
+                    <div class="form-group"><label>SMS Notifications</label><label class="toggle-switch"><input type="checkbox" id="smsNotifications"><span class="toggle-slider"></span></label></div>
+                    <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

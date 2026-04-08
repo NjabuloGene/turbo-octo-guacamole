@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job · AgentHelper.Source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <style>
+        .post-job-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .form-section h3 {
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            color: var(--ink);
+        }
+        .skills-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .skill-tag {
+            background: var(--teal-light);
+            color: var(--teal-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-tag .remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .salary-range {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="post-job-container">
+        <h1 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Post a Job</h1>
+        <p style="color: var(--ink-muted); margin-bottom: 2rem;">Find the right talent for your business</p>
+
+        <form id="postJobForm">
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h3>Basic Information</h3>
+                <div class="form-group">
+                    <label>Job Title <span class="required">*</span></label>
+                    <input type="text" id="jobTitle" placeholder="e.g., Senior React Developer" required>
+                </div>
+                <div class="form-group">
+                    <label>Job Description <span class="required">*</span></label>
+                    <textarea id="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Employment Type</label>
+                    <select id="employmentType">
+                        <option value="full_time">Full-time</option>
+                        <option value="part_time">Part-time</option>
+                        <option value="contract">Contract</option>
+                        <option value="temporary">Temporary</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Compensation -->
+            <div class="form-section">
+                <h3>Compensation</h3>
+                <div class="salary-range">
+                    <div class="form-group">
+                        <label>Minimum Salary (ZAR)</label>
+                        <input type="number" id="salaryMin" placeholder="e.g., 30000">
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Salary (ZAR)</label>
+                        <input type="number" id="salaryMax" placeholder="e.g., 50000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-section">
+                <h3>Location</h3>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="location" placeholder="e.g., Cape Town, Remote, Hybrid">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remoteAllowed"> Remote work allowed
+                    </label>
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="form-section">
+                <h3>Requirements & Skills</h3>
+                <div class="form-group">
+                    <label>Required Skills</label>
+                    <div class="skills-input">
+                        <input type="text" id="skillInput" placeholder="Type a skill and press Enter" style="flex: 1;">
+                    </div>
+                    <div id="skillsList" class="skills-input"></div>
+                </div>
+                <div class="form-group">
+                    <label>Experience Required</label>
+                    <select id="experienceRequired">
+                        <option value="">Any experience</option>
+                        <option value="entry">Entry level (0-2 years)</option>
+                        <option value="mid">Mid level (3-5 years)</option>
+                        <option value="senior">Senior level (6-9 years)</option>
+                        <option value="expert">Expert (10+ years)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Benefits -->
+            <div class="form-section">
+                <h3>Benefits</h3>
+                <div class="form-group">
+                    <label>Benefits (comma separated)</label>
+                    <input type="text" id="benefits" placeholder="e.g., Health insurance, Remote work, Flexible hours">
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-primary" style="flex: 1;">Post Job</button>
+                <button type="button" class="btn-secondary" onclick="window.location.href='my-jobs.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="post-job.js"></script>
+</body>
+</html>
