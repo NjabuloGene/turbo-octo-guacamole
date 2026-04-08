@@ -1,0 +1,11 @@
+# GitHub Pages configuration
+exclude:
+  - node_modules
+  - my-node-backend
+  - .gitignore
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - package.json
+  - package-lock.json
