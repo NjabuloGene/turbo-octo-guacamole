@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment · AgentHelper.Source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div style="max-width: 500px; margin: 3rem auto; padding: 2rem; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border);">
+        <h2 style="font-family: var(--font-display); text-align: center;">Secure Payment</h2>
+        <p style="text-align: center; color: var(--ink-muted);">Pay securely with PayFast</p>
+        
+        <div id="paymentInfo" style="margin: 2rem 0;">
+            <div style="background: var(--bg); padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;">
+                <p><strong>💼 Job:</strong> <span id="jobTitle">Loading...</span></p>
+                <p><strong>👤 Candidate:</strong> <span id="candidateName">Loading...</span></p>
+                <p><strong>💰 Amount:</strong> <span id="amount" style="font-size: 1.5rem; font-weight: bold; color: var(--teal);">R0.00</span></p>
+            </div>
+        </div>
+        
+        <button id="payButton" class="btn-primary" style="width: 100%; padding: 1rem;">Pay Now</button>
+        <div id="loading" style="display: none; text-align: center; padding: 1rem;">Processing...</div>
+    </div>
+
+    <!-- Hidden form for PayFast redirect -->
+    <form id="payfastForm" method="POST" style="display: none;"></form>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

@@ -44,6 +44,15 @@
                 <a href="#" class="dashboard-nav-item" data-tab="earnings">
                     <span class="nav-icon">💰</span><span>Earnings</span>
                 </a>
+                <a href="#" class="dashboard-nav-item" data-tab="payments">
+                    <span class="nav-icon">💳</span><span>Pending Payments</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="activejobs">
+                    <span class="nav-icon">▶️</span><span>Active Jobs</span>
+                </a>
+                <a href="#" class="dashboard-nav-item" data-tab="activehires">
+                    <span class="nav-icon">👥</span><span>Active Hires</span>
+                </a>
                 <a href="#" class="dashboard-nav-item" data-tab="calendar">
                     <span class="nav-icon">📅</span><span>Calendar</span>
                 </a>
@@ -54,6 +63,7 @@
         </div>
 
         <div class="dashboard-main">
+            <!-- Overview Tab -->
             <div id="overview-tab" class="dashboard-tab active">
                 <h2>Welcome Back!</h2>
                 <div class="stats-grid" id="statsGrid">
@@ -68,6 +78,7 @@
                 </div>
             </div>
 
+            <!-- Profile Tab -->
             <div id="profile-tab" class="dashboard-tab">
                 <h2>My Profile</h2>
                 <div class="profile-edit-form">
@@ -80,27 +91,57 @@
                 </div>
             </div>
 
+            <!-- Applications Tab -->
             <div id="applications-tab" class="dashboard-tab">
                 <h2>My Applications</h2>
                 <div id="applicationsList" class="applications-list"></div>
             </div>
 
+            <!-- My Jobs Tab -->
             <div id="jobs-tab" class="dashboard-tab">
                 <h2>My Jobs</h2>
                 <div id="jobsList" class="jobs-list"></div>
             </div>
 
+            <!-- Earnings Tab -->
             <div id="earnings-tab" class="dashboard-tab">
                 <h2>Earnings</h2>
                 <div class="earnings-summary" id="earningsSummary"></div>
                 <div id="earningsHistory"></div>
             </div>
 
+            <!-- Pending Payments Tab -->
+            <div id="payments-tab" class="dashboard-tab">
+                <h2>💰 Pending Payments</h2>
+                <div class="dashboard-section">
+                    <p class="section-note">Complete payment within 10 minutes to secure your booking.</p>
+                    <div id="pendingPaymentsList" class="pending-payments-list"></div>
+                </div>
+            </div>
+
+            <!-- Active Jobs Tab (for helpers) -->
+            <div id="activejobs-tab" class="dashboard-tab">
+                <h2>▶️ Active Jobs</h2>
+                <div class="dashboard-section">
+                    <div id="activeJobsList" class="active-jobs-list"></div>
+                </div>
+            </div>
+
+            <!-- Active Hires Tab (for hirers) -->
+            <div id="activehires-tab" class="dashboard-tab">
+                <h2>👥 Active Hires</h2>
+                <div class="dashboard-section">
+                    <div id="activeHiresList" class="active-hires-list"></div>
+                </div>
+            </div>
+
+            <!-- Calendar Tab -->
             <div id="calendar-tab" class="dashboard-tab">
                 <h2>Calendar</h2>
                 <div id="calendarView"></div>
             </div>
 
+            <!-- Settings Tab -->
             <div id="settings-tab" class="dashboard-tab">
                 <h2>Settings</h2>
                 <div class="settings-form">

@@ -8,7 +8,11 @@ let currentUser = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
-    currentUser = JSON.parse(localStorage.getItem('user'));
+    try {
+        currentUser = JSON.parse(localStorage.getItem('user'));
+    } catch (e) {
+        console.error('Failed to parse user');
+    }
     
     if (!token || !currentUser) {
         window.location.href = 'login.html';
@@ -46,7 +50,7 @@ async function loadJobs() {
         });
         const data = await response.json();
         
-        if (data.success) {
+        if (data.success && data.jobs) {
             allJobs = data.jobs;
             displayJobs(allJobs);
         } else {
@@ -68,25 +72,25 @@ function displayJobs(jobs) {
     }
     
     container.innerHTML = jobs.map(job => `
-        <div class="job-card">
-            <div class="job-title">${escapeHtml(job.title)}</div>
-            <div class="job-company">${escapeHtml(job.company_name)}</div>
-            <div class="job-details">
+        <div class="job-card" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem;">
+            <div style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.25rem;">${escapeHtml(job.title)}</div>
+            <div style="color: var(--teal); font-weight: 500; margin-bottom: 0.5rem;">${escapeHtml(job.company_name)}</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 0.75rem 0; font-size: 0.85rem; color: var(--ink-muted);">
                 <span>📍 ${job.location || 'Remote'}</span>
                 <span>💼 ${formatEmploymentType(job.employment_type)}</span>
                 <span>📅 Posted ${formatDate(job.created_at)}</span>
             </div>
-            <div class="job-description">${escapeHtml(job.description.substring(0, 200))}${job.description.length > 200 ? '...' : ''}</div>
+            <div style="color: var(--ink-muted); margin: 0.75rem 0; line-height: 1.6;">${escapeHtml(job.description.substring(0, 200))}${job.description.length > 200 ? '...' : ''}</div>
             ${job.requirements?.length ? `
-                <div class="job-skills">
-                    ${job.requirements.map(skill => `<span class="skill-badge">${escapeHtml(skill)}</span>`).join('')}
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0;">
+                    ${job.requirements.map(skill => `<span style="background: var(--teal-light); color: var(--teal-dark); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem;">${escapeHtml(skill)}</span>`).join('')}
                 </div>
             ` : ''}
-            <div class="job-footer">
-                <span class="salary">💰 ${formatSalary(job.salary_min, job.salary_max)}</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                <span style="font-weight: 600; color: var(--teal);">💰 ${formatSalary(job.salary_min, job.salary_max)}</span>
                 ${job.hasApplied ? 
-                    `<span class="already-applied">✓ Applied</span>` :
-                    `<button class="btn-primary apply-btn" onclick="applyForJob(${job.id})">Apply Now</button>`
+                    `<span style="color: var(--ink-muted);">✓ Applied</span>` :
+                    `<button class="btn-primary" onclick="applyForJob(${job.id})" style="padding: 0.5rem 1.5rem;">Apply Now</button>`
                 }
             </div>
         </div>
@@ -165,7 +169,7 @@ function formatSalary(min, max) {
     if (min && max) return `R${min.toLocaleString()} - R${max.toLocaleString()}`;
     if (min) return `From R${min.toLocaleString()}`;
     if (max) return `Up to R${max.toLocaleString()}`;
-    return 'Salary not specified';
+    return 'Not specified';
 }
 
 function formatDate(dateString) {
@@ -186,3 +190,6 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// Make functions available globally
+window.applyForJob = applyForJob;

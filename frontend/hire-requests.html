@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Requests · Helper.request</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="helper.css">
+    <style>
+        .requests-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .request-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .request-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .job-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        .employer-name {
+            color: var(--teal);
+            font-weight: 500;
+        }
+        .request-details {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+        }
+        .request-details p {
+            margin: 0.5rem 0;
+        }
+        .amount {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--teal);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-pending { background: #fef3c7; color: #b45309; }
+        .status-accepted { background: #dcfce7; color: #15803d; }
+        .status-rejected { background: #fee2e2; color: #b91c1c; }
+        .status-completed { background: #dbeafe; color: #1e40af; }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+        }
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">HELPER<span>.</span>request</a>
+            <ul class="nav-links" id="navLinks"></ul>
+            <div class="nav-actions"></div>
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <div class="requests-container">
+        <h1 style="font-family: var(--font-display);">Hire Requests</h1>
+        <p style="color: var(--ink-muted); margin-bottom: 2rem;">Review and respond to job offers from employers</p>
+        
+        <div id="hireRequestsList">
+            <div class="loading-state"><div class="loading-spinner"></div><p>Loading requests...</p></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HELPER<span style="color:var(--teal)">.</span>request</div>
+        <p>Get whom you need, when you need them.<br>Anywhere in South Africa.</p>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2025 HELPER.request — All rights reserved.</p>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script src="hire-requests.js"></script>
+</body>
+</html>

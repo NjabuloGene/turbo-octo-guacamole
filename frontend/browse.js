@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         minRating: '',
         sort: 'rating'
     };
+    let currentRate = 0;  // Single declaration - fixed duplicate error
     
     // ========== AUTH CHECK ==========
     const token = localStorage.getItem('token');
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!profilesGrid) return;
         
         // Show loading state
-        profilesGrid.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading professionals...</p></div>';
+        profilesGrid.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading professionals...</p></div>';
         
         try {
             const response = await fetch('http://localhost:3000/api/profiles/browse', {
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 allProfiles = data.profiles || [];
                 await loadSavedProfiles();
-                applyFilters(); // Apply any current filters
+                applyFilters();
             } else {
                 profilesGrid.innerHTML = `<div class="error-message">❌ ${data.error || 'Failed to load profiles'}</div>`;
             }
@@ -166,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '</div>';
         
         profilesGrid.innerHTML = html;
+        attachButtonEvents();
     }
     
     // ========== CREATE PROFILE CARD ==========
@@ -183,6 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const profileImage = profile.profile_pic || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=00938a&color=fff&size=200`;
         const isSaved = savedProfileIds.has(profile.id);
+        // Use hourly_rate if available, otherwise fall back to rate
+        const displayRate = profile.hourly_rate || profile.rate || '200';
         const escapedName = profile.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
         
         return `
@@ -194,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="helper-info">
                         <div class="name">${escapeHtml(profile.name)}</div>
                         <div class="role">${profile.role || 'Professional'}</div>
-                        <div class="rate">${profile.rate || 'R200/hour'}</div>
+                        <div class="rate">R${displayRate}/hour</div>
                     </div>
                 </div>
                 
@@ -209,10 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 
                 <div class="helper-card-actions">
-                    <button class="contact-btn" data-user-id="${profile.user_id}" data-profile-id="${profile.id}" data-name="${escapedName}">
+                    <button class="contact-btn" data-user-id="${profile.user_id}" data-profile-id="${profile.id}" data-name="${escapedName}" data-rate="${displayRate}">
                         💬 Message
                     </button>
-                    <button class="hire-btn btn-primary" data-user-id="${profile.user_id}" data-profile-id="${profile.id}" data-name="${escapedName}">
+                    <button class="hire-btn btn-primary" data-user-id="${profile.user_id}" data-profile-id="${profile.id}" data-name="${escapedName}" data-rate="${displayRate}">
                         🤝 Hire
                     </button>
                     <button class="save-btn ${isSaved ? 'saved' : ''}" data-profile-id="${profile.id}">
@@ -298,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="modal-body">
                     <textarea id="messageText" rows="5" placeholder="Type your message here..." 
-                        style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); font-family:inherit; resize:vertical;"></textarea>
+                        style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; font-family:inherit; resize:vertical;"></textarea>
                 </div>
                 <div class="modal-actions" style="display: flex; gap: 12px; margin-top: 20px;">
                     <button class="btn-primary" id="sendMessageConfirmBtn">Send Message</button>
@@ -348,24 +352,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // ========== HIRE HANDLER ==========
-    function handleHireClick(event) {
-        event.stopPropagation();
-        const btn = event.currentTarget;
-        const userId = btn.dataset.userId;
-        const profileId = btn.dataset.profileId;
-        const name = btn.dataset.name;
-        
-        openHireModal(userId, profileId, name);
-    }
-    
-    function openHireModal(helperId, profileId, helperName) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const defaultDate = tomorrow.toISOString().split('T')[0];
+    // ========== HIRE MODAL WITH CALCULATOR ==========
+    function openHireModal(helperId, profileId, helperName, hourlyRate) {
+        currentRate = parseFloat(hourlyRate) || 200;
         
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
+        
+        const today = new Date();
+        const defaultDate = today.toISOString().split('T')[0];
+        
         modal.innerHTML = `
             <div class="modal-container" style="max-width: 500px;">
                 <div class="modal-header">
@@ -373,43 +369,130 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Start Date *</label>
-                        <input type="date" id="startDate" value="${defaultDate}" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);">
+                    <p><strong>💰 Rate:</strong> R${currentRate}/hour</p>
+                    
+                    <div class="form-group">
+                        <label>📊 Hours</label>
+                        <input type="range" id="hoursSlider" min="0" max="80" step="0.5" value="0" oninput="updateHoursValue(this.value)">
+                        <input type="number" id="hoursInput" min="0" max="80" step="0.5" value="0" placeholder="Enter hours" oninput="updateHoursSlider(this.value)" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem;">
                     </div>
-                    <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Duration / Hours</label>
-                        <input type="text" id="duration" placeholder="e.g., 4 hours, 1 week, ongoing" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);">
+                    
+                    <div class="form-group">
+                        <label>📅 Days (8 hours/day)</label>
+                        <input type="range" id="daysSlider" min="0" max="10" step="1" value="0" oninput="updateDaysValue(this.value)">
+                        <input type="number" id="daysInput" min="0" max="10" step="1" value="0" placeholder="Enter days" oninput="updateDaysSlider(this.value)" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem;">
                     </div>
-                    <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Message (optional)</label>
-                        <textarea id="hireMessage" rows="3" placeholder="Tell ${helperName} about your needs..." style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); resize:vertical;"></textarea>
+                    
+                    <div class="form-group">
+                        <label>📅 Start Date</label>
+                        <input type="date" id="startDate" value="${defaultDate}">
+                    </div>
+                    
+                    <div class="form-group" style="background: #e6f4f2; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <label style="font-weight: bold;">💰 Total Amount</label>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #00938a;" id="totalAmount">R0.00</div>
+                        <small id="calculationBreakdown" style="color: #666;"></small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>💬 Message to Helper</label>
+                        <textarea id="hireMessage" rows="3" placeholder="Describe the job details, location, and any special requirements..." style="width:100%; padding:0.5rem; border-radius:8px; border:1px solid #ddd;"></textarea>
                     </div>
                 </div>
-                <div class="modal-actions" style="display: flex; gap: 12px; margin-top: 20px;">
-                    <button class="btn-primary" id="submitHireBtn">Send Hire Request</button>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="submitHireRequestWithAmount(${helperId}, ${profileId}, '${escapeHtml(helperName)}')">
+                        Send Hire Request
+                    </button>
                     <button class="btn-secondary" onclick="this.closest('.modal-overlay').remove()">Cancel</button>
                 </div>
             </div>
         `;
+        
         document.body.appendChild(modal);
         
-        document.getElementById('submitHireBtn').onclick = () => {
-            submitHireRequest(helperId, profileId);
+        // Make calculation functions global
+        window.updateHoursValue = function(val) {
+            document.getElementById('hoursInput').value = val;
+            document.getElementById('daysInput').value = 0;
+            document.getElementById('daysSlider').value = 0;
+            calculateTotal();
+        };
+        
+        window.updateHoursSlider = function(val) {
+            document.getElementById('hoursSlider').value = val;
+            document.getElementById('daysInput').value = 0;
+            document.getElementById('daysSlider').value = 0;
+            calculateTotal();
+        };
+        
+        window.updateDaysValue = function(val) {
+            document.getElementById('daysInput').value = val;
+            document.getElementById('hoursInput').value = 0;
+            document.getElementById('hoursSlider').value = 0;
+            calculateTotalFromDays();
+        };
+        
+        window.updateDaysSlider = function(val) {
+            document.getElementById('daysSlider').value = val;
+            document.getElementById('hoursInput').value = 0;
+            document.getElementById('hoursSlider').value = 0;
+            calculateTotalFromDays();
+        };
+        
+        window.calculateTotal = function() {
+            const hours = parseFloat(document.getElementById('hoursInput')?.value) || 0;
+            const total = hours * currentRate;
+            document.getElementById('totalAmount').innerHTML = `R${total.toFixed(2)}`;
+            document.getElementById('calculationBreakdown').innerHTML = `${hours} hour(s) × R${currentRate}/hour = R${total.toFixed(2)}`;
+        };
+        
+        window.calculateTotalFromDays = function() {
+            const days = parseFloat(document.getElementById('daysInput')?.value) || 0;
+            const hours = days * 8;
+            const total = hours * currentRate;
+            document.getElementById('totalAmount').innerHTML = `R${total.toFixed(2)}`;
+            document.getElementById('calculationBreakdown').innerHTML = `${days} day(s) (${hours} hours) × R${currentRate}/hour = R${total.toFixed(2)}`;
         };
     }
     
-    async function submitHireRequest(helperId, profileId) {
+    // Submit hire request with calculated amount
+    window.submitHireRequestWithAmount = async function(helperId, profileId, helperName) {
+        const hours = parseFloat(document.getElementById('hoursInput')?.value) || 0;
+        const days = parseFloat(document.getElementById('daysInput')?.value) || 0;
         const startDate = document.getElementById('startDate')?.value;
-        const duration = document.getElementById('duration')?.value;
         const message = document.getElementById('hireMessage')?.value;
         
-        if (!startDate) {
-            showNotification('Please select a start date', 'error');
+        let totalHours = 0;
+        let durationText = '';
+        let totalAmount = 0;
+        
+        if (hours > 0) {
+            totalHours = hours;
+            durationText = `${hours} hour(s)`;
+            totalAmount = hours * currentRate;
+        } else if (days > 0) {
+            totalHours = days * 8;
+            durationText = `${days} day(s) (${totalHours} hours)`;
+            totalAmount = totalHours * currentRate;
+        } else {
+            alert('Please enter number of hours or days');
             return;
         }
         
+        if (!startDate) {
+            alert('Please select a start date');
+            return;
+        }
+        
+        if (totalAmount <= 0) {
+            alert('Please enter a valid number of hours or days');
+            return;
+        }
+        
+        if (!confirm(`Send hire request for ${durationText} at R${totalAmount.toFixed(2)}?`)) return;
+        
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:3000/api/hire-requests', {
                 method: 'POST',
                 headers: {
@@ -420,7 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     helper_id: parseInt(helperId),
                     profile_id: profileId ? parseInt(profileId) : null,
                     start_date: startDate,
-                    duration: duration || 'To be discussed',
+                    duration: durationText,
+                    total_amount: totalAmount,  // Fixed: use total_amount not amount
                     message: message || ''
                 })
             });
@@ -428,145 +512,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             if (data.success) {
-                showNotification('Hire request sent! The helper will contact you soon.', 'success');
+                alert(`✅ Hire request sent! Total: R${totalAmount.toFixed(2)}`);
                 document.querySelector('.modal-overlay')?.remove();
             } else {
-                showNotification(data.error || 'Failed to send hire request', 'error');
+                alert(data.error || 'Failed to send hire request');
             }
         } catch (error) {
             console.error('Hire request error:', error);
-            showNotification('Network error', 'error');
-        }
-    }
-    
-    // ========== SHOW PROFILE MODAL (Clean, intuitive design) ==========
-    function showProfileModal(profile) {
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        
-        // Safely handle rating
-        let rating = profile.rating || 4.0;
-        rating = parseFloat(rating);
-        const fullStars = Math.floor(rating);
-        const hasHalf = rating % 1 >= 0.5;
-        const stars = '★'.repeat(fullStars) + (hasHalf ? '½' : '') + '☆'.repeat(5 - fullStars - (hasHalf ? 1 : 0));
-        
-        const profileImage = profile.profile_pic || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=00938a&color=fff&size=200`;
-        
-        // Create photos gallery HTML
-        let photosHtml = '';
-        if (profile.photos && profile.photos.length > 0) {
-            photosHtml = `
-                <div class="profile-gallery">
-                    <h3>Experience Photos</h3>
-                    <div class="gallery-grid">
-                        ${profile.photos.map(photo => `
-                            <img src="${photo}" class="gallery-image" onclick="window.open('${photo}', '_blank')" alt="Experience photo">
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Create documents HTML
-        let documentsHtml = '';
-        if (profile.documents && profile.documents.length > 0) {
-            documentsHtml = `
-                <div class="profile-gallery">
-                    <h3>Documents & Certificates</h3>
-                    <div class="documents-list">
-                        ${profile.documents.map(doc => `
-                            <a href="${doc}" target="_blank" class="document-link">
-                                📄 ${doc.split('/').pop()}
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Video HTML
-        let videoHtml = '';
-        if (profile.video) {
-            videoHtml = `
-                <div class="profile-gallery">
-                    <h3>Introduction Video</h3>
-                    <video src="${profile.video}" controls style="width: 100%; border-radius: 12px;"></video>
-                </div>
-            `;
-        }
-        
-        modal.innerHTML = `
-            <div class="modal-container">
-                <div class="modal-header">
-                    <h2>${escapeHtml(profile.name)}</h2>
-                    <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
-                </div>
-                <div class="modal-body">
-                    <div class="profile-detail-header">
-                        <img src="${profileImage}" alt="${profile.name}" class="profile-detail-avatar" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=00938a&color=fff'">
-                        <div class="profile-detail-info">
-                            <div class="profile-detail-role">${profile.role || 'Professional'}</div>
-                            <div class="profile-detail-name">${escapeHtml(profile.name)}</div>
-                            <div class="rating-stars">${stars}</div>
-                            <div class="profile-detail-meta">
-                                <div class="meta-item">
-                                    <span class="icon">📍</span>
-                                    <span>${profile.location || 'Location not set'}</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="icon">💰</span>
-                                    <span>${profile.rate || 'R200/hour'}</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="icon">📅</span>
-                                    <span>${profile.experience || '0 months'} experience</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="profile-detail-bio">
-                        <h3>About</h3>
-                        <p>${profile.bio || 'No bio provided.'}</p>
-                    </div>
-                    
-                    ${photosHtml}
-                    ${documentsHtml}
-                    ${videoHtml}
-                </div>
-                <div class="modal-actions">
-                    <button class="action-btn btn-message" onclick="openMessageModalFromProfile(${profile.user_id}, ${profile.id}, '${escapeHtml(profile.name)}')">
-                        💬 Message
-                    </button>
-                    <button class="action-btn btn-hire" onclick="openHireModalFromProfile(${profile.user_id}, ${profile.id}, '${escapeHtml(profile.name)}')">
-                        🤝 Hire
-                    </button>
-                    <button class="action-btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">Close</button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-    }
-    
-    // ========== HELPER FUNCTIONS FOR MODAL BUTTONS ==========
-    window.openMessageModalFromProfile = function(userId, profileId, name) {
-        document.querySelector('.modal-overlay')?.remove();
-        if (typeof openMessageModal === 'function') {
-            openMessageModal(userId, profileId, name);
+            alert('Network error - please try again');
         }
     };
     
-    window.openHireModalFromProfile = function(userId, profileId, name) {
-        document.querySelector('.modal-overlay')?.remove();
-        if (typeof openHireModal === 'function') {
-            openHireModal(userId, profileId, name);
-        }
-    };
+    // ========== HIRE HANDLER ==========
+    function handleHireClick(event) {
+        event.stopPropagation();
+        const btn = event.currentTarget;
+        const userId = btn.dataset.userId;
+        const profileId = btn.dataset.profileId;
+        const name = btn.dataset.name;
+        const rate = btn.dataset.rate;
+        
+        openHireModal(userId, profileId, name, rate);
+    }
     
-    // ========== VIEW PROFILE DETAILS (calls showProfileModal) ==========
-    window.viewProfileDetails = async function(profileId) {
+    // ========== SHOW PROFILE MODAL ==========
+    async function viewProfileDetails(profileId) {
         try {
             const response = await fetch(`http://localhost:3000/api/profiles/${profileId}/details`, {
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -583,12 +553,101 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('View profile error:', error);
             showNotification('Error loading profile', 'error');
         }
-    };
+    }
+    
+    function showProfileModal(profile) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        
+        let rating = profile.rating || 4.0;
+        rating = parseFloat(rating);
+        const fullStars = Math.floor(rating);
+        const hasHalf = rating % 1 >= 0.5;
+        const stars = '★'.repeat(fullStars) + (hasHalf ? '½' : '') + '☆'.repeat(5 - fullStars - (hasHalf ? 1 : 0));
+        
+        const profileImage = profile.profile_pic || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=00938a&color=fff&size=200`;
+        const displayRate = profile.hourly_rate || profile.rate || '200';
+        
+        let photosHtml = '';
+        if (profile.photos && profile.photos.length > 0) {
+            photosHtml = `
+                <div class="profile-gallery">
+                    <h3>Experience Photos</h3>
+                    <div class="gallery-grid" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        ${profile.photos.map(photo => `
+                            <img src="${photo}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="window.open('${photo}', '_blank')">
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        let documentsHtml = '';
+        if (profile.documents && profile.documents.length > 0) {
+            documentsHtml = `
+                <div class="profile-gallery">
+                    <h3>Documents & Certificates</h3>
+                    <div class="documents-list">
+                        ${profile.documents.map(doc => `
+                            <a href="${doc}" target="_blank" style="display: block; padding: 5px 0; color: #00938a;">📄 ${doc.split('/').pop()}</a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        let videoHtml = '';
+        if (profile.video) {
+            videoHtml = `
+                <div class="profile-gallery">
+                    <h3>Introduction Video</h3>
+                    <video src="${profile.video}" controls style="width: 100%; border-radius: 12px;"></video>
+                </div>
+            `;
+        }
+        
+        modal.innerHTML = `
+            <div class="modal-container" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <h2>${escapeHtml(profile.name)}</h2>
+                    <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                        <img src="${profileImage}" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+                        <div>
+                            <div style="font-size: 1.2rem; font-weight: 600;">${profile.role || 'Professional'}</div>
+                            <div class="rating-stars" style="margin: 5px 0;">${stars}</div>
+                            <div>💰 R${displayRate}/hour</div>
+                            <div>📍 ${profile.location || 'Location not set'}</div>
+                            <div>📅 ${profile.experience || '0 months'} experience</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h3>About</h3>
+                        <p>${profile.bio || 'No bio provided.'}</p>
+                    </div>
+                    
+                    ${photosHtml}
+                    ${documentsHtml}
+                    ${videoHtml}
+                </div>
+                <div class="modal-actions" style="display: flex; gap: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <button class="btn-primary" onclick="openMessageModal(${profile.user_id}, ${profile.id}, '${escapeHtml(profile.name)}')">💬 Message</button>
+                    <button class="btn-primary" onclick="openHireModal(${profile.user_id}, ${profile.id}, '${escapeHtml(profile.name)}', ${displayRate})">🤝 Hire</button>
+                    <button class="btn-secondary" onclick="this.closest('.modal-overlay').remove()">Close</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
     
     // ========== EXPOSE FUNCTIONS GLOBALLY ==========
     window.openMessageModal = openMessageModal;
     window.openHireModal = openHireModal;
-    window.toggleSave = handleSaveClick;
+    window.viewProfileDetails = viewProfileDetails;
     
     // ========== UI HELPERS ==========
     function updateResultsCount(count) {
@@ -673,12 +732,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ratingFilter) ratingFilter.addEventListener('change', () => { currentFilters.minRating = ratingFilter.value; applyFilters(); });
     if (sortFilter) sortFilter.addEventListener('change', () => { currentFilters.sort = sortFilter.value; applyFilters(); });
     if (clearFiltersBtn) clearFiltersBtn.addEventListener('click', clearAllFilters);
-    
-    // Attach button events after DOM updates
-    const observer = new MutationObserver(() => {
-        attachButtonEvents();
-    });
-    observer.observe(profilesGrid, { childList: true, subtree: true });
     
     // ========== INITIAL LOAD ==========
     loadProfiles();

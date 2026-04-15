@@ -3337,3 +3337,1012 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
         padding: 0.5rem 0.5rem 0.5rem 1rem;
     }
 }
+
+/* Notification Badges */
+.notification-badge {
+    background: var(--danger);
+    color: white;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 10px;
+    margin-left: 0.25rem;
+    display: inline-block;
+}
+
+/* Toast Animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   ENHANCED DASHBOARD FEATURES
+   Pending Payments, Active Jobs, Countdown Timer, Star Rating
+   ============================================================ */
+
+/* ── PENDING PAYMENTS SECTION ── */
+.pending-payments-list,
+.active-jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pending-payment-card,
+.active-job-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: all 0.2s;
+}
+
+.pending-payment-card:hover,
+.active-job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--teal);
+}
+
+.amount-large {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+}
+
+/* ── COUNTDOWN TIMER ── */
+.countdown-timer {
+    background: var(--accent-light);
+    border: 1px solid rgba(232, 148, 58, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.countdown-timer .timer-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.countdown-timer .timer-display {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: monospace;
+    color: #e67e22;
+}
+
+.countdown-timer.expired .timer-display {
+    color: var(--danger);
+}
+
+/* ── PAY NOW BUTTON ── */
+.pay-now-btn {
+    background: var(--teal);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.pay-now-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 147, 138, 0.3);
+}
+
+/* ── SECTION NOTE (payment warning) ── */
+.section-note {
+    background: var(--accent-light);
+    border: 1px solid rgba(232, 148, 58, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-note::before {
+    content: "⚠️";
+    font-size: 1rem;
+}
+
+/* ── STAR RATING SYSTEM ── */
+.rating-section {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.rating-section label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.star {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ccc;
+    transition: all 0.15s;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.star:hover,
+.star.selected {
+    color: #f5b301;
+    transform: scale(1.1);
+}
+
+.rated-text {
+    color: #10b981;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.rated-text::before {
+    content: "✓";
+    font-size: 1rem;
+}
+
+/* ── NOTIFICATION POPUP (Accepted Offer) ── */
+.notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.notification-popup {
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: popupSlideIn 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-popup .popup-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.notification-popup h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+}
+
+.notification-popup p {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.notification-popup .popup-warning {
+    background: var(--accent-light);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin: 0.75rem 0;
+}
+
+.popup-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.popup-btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.popup-btn.primary {
+    background: var(--teal);
+    color: white;
+}
+
+.popup-btn.primary:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+}
+
+.popup-btn.secondary {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--ink-muted);
+}
+
+.popup-btn.secondary:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+}
+
+/* ── NOTIFICATION BADGE WITH PULSE ANIMATION ── */
+.notification-badge.pulse {
+    animation: badgePulse 1.5s infinite;
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+/* ── ACTIVE LINK STYLES FOR NAVIGATION ── */
+.nav-links a.active {
+    color: var(--teal-mid) !important;
+    background: rgba(0, 147, 138, 0.12);
+}
+
+/* ── RESPONSIVE DASHBOARD ENHANCEMENTS ── */
+@media (max-width: 768px) {
+    .pending-payment-card,
+    .active-job-card {
+        padding: 1rem;
+    }
+    
+    .amount-large {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-timer .timer-display {
+        font-size: 0.9rem;
+    }
+    
+    .star {
+        font-size: 1.2rem;
+    }
+    
+    .notification-popup {
+        margin: 1rem;
+        padding: 1.25rem;
+    }
+    
+    .popup-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .popup-btn {
+        width: 100%;
+    }
+}
+
+/* ── DARK MODE ENHANCEMENTS ── */
+body.dark .countdown-timer {
+    background: rgba(232, 148, 58, 0.15);
+}
+
+body.dark .section-note {
+    background: rgba(232, 148, 58, 0.15);
+}
+
+body.dark .notification-popup {
+    background: var(--surface);
+}
+
+body.dark .popup-btn.secondary {
+    background: var(--bg-alt);
+    border-color: var(--border);
+}
+
+body.dark .popup-btn.secondary:hover {
+    background: var(--teal-light);
+    color: var(--teal);
+}
+
+/* ── HAMBURGER MENU ANIMATION ── */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ── MOBILE MENU IMPROVEMENTS ── */
+@media (max-width: 768px) {
+    .navbar .nav-links {
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 64px);
+        background: var(--surface);
+        flex-direction: column;
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 299;
+        overflow-y: auto;
+        border-right: 1px solid var(--border);
+    }
+    
+    body.dark .navbar .nav-links {
+        background: var(--surface);
+    }
+    
+    .navbar .nav-links.open {
+        left: 0;
+    }
+    
+    .navbar .nav-links li {
+        width: 100%;
+    }
+    
+    .navbar .nav-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        width: 100%;
+    }
+    
+    /* Mobile dropdown fixes */
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 1rem;
+        background: transparent;
+    }
+    
+    .dropdown-menu a {
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+    }
+}
+
+/* ============================================================
+   FIXED NAVBAR STYLES
+   ============================================================ */
+
+/* Logout button */
+.btn-logout {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: 0.42rem 0.95rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+}
+
+.btn-logout:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+/* User menu container */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Ensure nav actions don't wrap on desktop */
+.nav-actions {
+    flex-shrink: 0;
+}
+
+/* Mobile menu improvements */
+@media (max-width: 768px) {
+    .navbar .nav-links {
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 64px);
+        background: var(--surface);
+        flex-direction: column;
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 299;
+        overflow-y: auto;
+        border-right: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .navbar .nav-links.open {
+        left: 0;
+    }
+    
+    .navbar .nav-links li {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .navbar .nav-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        font-size: 1rem;
+    }
+    
+    /* Mobile dropdown fixes */
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 1.5rem;
+        background: transparent;
+        display: none;
+    }
+    
+    .dropdown-menu a {
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+    }
+    
+    /* User menu on mobile */
+    .user-menu {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    
+    .user-greeting {
+        font-size: 0.8rem;
+    }
+    
+    .btn-logout {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Dark mode for logout button */
+body.dark .btn-logout {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+body.dark .btn-logout:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* ============================================================
+   NAVBAR FIXES - Desktop Layout
+   ============================================================ */
+
+/* Ensure navbar displays properly on desktop */
+.navbar {
+    background: var(--nav-solid);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.nav-inner {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 var(--sp-xl);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-xl);
+}
+
+/* Navigation links container - horizontal on desktop */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    list-style: none;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgba(240,237,230,0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    color: #f0ede6;
+    background: rgba(255,255,255,0.07);
+}
+
+.nav-links a.active {
+    color: var(--teal-mid);
+}
+
+/* User menu on the right side */
+.nav-actions {
+    flex-shrink: 0;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+}
+
+/* Role badges */
+.role-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.role-helper {
+    background: var(--teal);
+    color: #fff;
+}
+
+.role-hirer {
+    background: var(--accent);
+    color: #fff;
+}
+
+.role-admin {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* User greeting */
+.user-greeting {
+    color: rgba(240,237,230,0.8);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+/* Logout button */
+.btn-logout {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: 0.42rem 0.95rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+}
+
+.btn-logout:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+/* Dark toggle button */
+.dark-toggle {
+    background: none;
+    border: 1px solid rgba(240,237,230,0.18);
+    color: rgba(240,237,230,0.65);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.18s;
+    flex-shrink: 0;
+}
+
+.dark-toggle:hover {
+    background: rgba(255,255,255,0.09);
+    color: #f0ede6;
+}
+
+/* Dropdown menu styling */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-trigger {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    min-width: 200px;
+    z-index: 200;
+    display: none;
+    padding: 0.5rem 0;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Notification badges */
+.notification-badge {
+    background: #ef4444;
+    color: white;
+    display: inline-block;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 0.25rem;
+    padding: 0 0.25rem;
+    vertical-align: middle;
+}
+
+.notification-badge.pulse {
+    animation: badgePulse 1.5s infinite;
+}
+
+@keyframes badgePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE FIXES
+   ============================================================ */
+@media (max-width: 1024px) {
+    .nav-inner {
+        padding: 0 var(--sp-lg);
+    }
+    
+    .nav-links a {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 6px;
+        flex-shrink: 0;
+    }
+    
+    .hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: rgba(240,237,230,0.8);
+        border-radius: 2px;
+        transition: all 0.3s;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 64px);
+        background: var(--surface);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 299;
+        overflow-y: auto;
+        border-right: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-links.open {
+        left: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        font-size: 1rem;
+        white-space: normal;
+    }
+    
+    /* Mobile dropdown fixes */
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 1.5rem;
+        background: transparent;
+        display: none;
+    }
+    
+    .dropdown-menu a {
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+    
+    .dropdown.open .dropdown-menu {
+        display: block;
+    }
+    
+    /* User menu on mobile */
+    .user-menu {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    
+    .user-greeting {
+        font-size: 0.8rem;
+    }
+    
+    .btn-logout {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .nav-actions {
+        margin-left: auto;
+    }
+}
+
+/* Dark mode support for navbar */
+body.dark .dropdown-menu {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+body.dark .btn-logout {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+body.dark .btn-logout:hover {
+    background: #ef4444;
+    color: white;
+}
+
+body.dark .nav-links.open {
+    background: var(--surface);
+}
+
+/* ============================================================
+   NAVBAR FIXES - Add these to your existing helper.css
+   ============================================================ */
+
+/* Ensure navbar displays horizontally */
+.navbar {
+    background: var(--nav-solid);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.nav-inner {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 var(--sp-xl);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-xl);
+}
+
+/* Navigation links - horizontal on desktop */
+.nav-links {
+    display: flex !important;
+    align-items: center;
+    gap: 0.15rem;
+    list-style: none;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgba(240,237,230,0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    color: #f0ede6;
+    background: rgba(255,255,255,0.07);
+}
+
+/* Hide hamburger on desktop */
+.hamburger {
+    display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: rgba(240,237,230,0.8);
+        border-radius: 2px;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 64px);
+        background: var(--surface);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 299;
+        border-right: 1px solid var(--border);
+    }
+    
+    .nav-links.open {
+        left: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+    }
+    
+    .nav-links a {
+        display: block;
+        width: 100%;
+        white-space: normal;
+    }
+}

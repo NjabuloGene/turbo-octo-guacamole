@@ -448,11 +448,25 @@
     }
 
     /* ═══════════════════════════════════════════
-       HIRE MODAL
+       HIRE MODAL - Enhanced with Calendar + Sliders
+       (Backward compatible - falls back to simple modal if needed)
     ═══════════════════════════════════════════ */
+    
     function openHire(helperId, profileId, name) {
         if (!isLoggedIn()) { promptLogin(); return; }
-
+        
+        // Check if enhanced modal is available (from enhanced-hire-modal.js)
+        if (typeof window.EnhancedHire !== 'undefined' && window.EnhancedHire && typeof window.EnhancedHire.open === 'function') {
+            // Use the enhanced modal with calendar and sliders
+            window.EnhancedHire.open(helperId, profileId, name);
+        } else {
+            // Fallback to simple modal (original behavior)
+            openSimpleHireModal(helperId, profileId, name);
+        }
+    }
+    
+    // Original simple modal - kept as fallback
+    function openSimpleHireModal(helperId, profileId, name) {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         const defaultDate = tomorrow.toISOString().split('T')[0];
@@ -461,8 +475,8 @@
         overlay.innerHTML = `
         <div class="svc-modal svc-modal-sm">
             <button class="modal-close-btn" onclick="this.closest('.svc-overlay').remove()">✕</button>
-            <h3 class="modal-form-title">Hire ${esc(name)}</h3>
-            <p class="modal-form-sub">Tell ${esc(name.split(' ')[0])} when you need them and what the job entails.</p>
+            <h3 class="modal-form-title">Hire ${escapeHtml(name)}</h3>
+            <p class="modal-form-sub">Tell ${escapeHtml(name.split(' ')[0])} when you need them and what the job entails.</p>
 
             <div class="modal-field">
                 <label class="modal-label">Start Date <span class="req">*</span></label>
@@ -513,10 +527,23 @@
             if (data.success) {
                 document.querySelector('.svc-overlay')?.remove();
                 showNotification('Hire request sent! They\'ll be in touch soon. ✓', 'success');
+                
+                // If there's an amount, offer payment
+                if (data.total_amount && data.total_amount > 0) {
+                    setTimeout(() => {
+                        const payNow = confirm(`Total amount: R${data.total_amount.toFixed(2)}\n\nWould you like to make a payment now?`);
+                        if (payNow && window.EnhancedHire && typeof window.EnhancedHire.initiatePayment === 'function') {
+                            window.EnhancedHire.initiatePayment(data.requestId, data.total_amount);
+                        } else if (payNow) {
+                            alert('Payment will be available after the helper accepts your request.');
+                        }
+                    }, 500);
+                }
             } else {
                 showNotification(data.error || 'Failed to send request.', 'error');
             }
-        } catch {
+        } catch (err) {
+            console.error('Submit hire error:', err);
             showNotification('Network error. Please try again.', 'error');
         }
     }
@@ -699,6 +726,14 @@
         const d = document.createElement('div');
         d.textContent = String(str);
         return d.innerHTML;
+    }
+
+    // Helper escape function for the hire modal
+    function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
     }
 
     /* ═══════════════════════════════════════════
